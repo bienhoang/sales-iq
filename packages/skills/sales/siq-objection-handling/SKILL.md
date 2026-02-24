@@ -89,3 +89,8 @@ Use this skill before demos and proposals to anticipate objections and address t
 - Timing objections often have a real root cause — dig for it before accepting the delay
 - Load `references/common-objections.md` to generate playbook for all 15 standard objections
 - Reference `../siq-account-strategy/references/pricing-tiers.md` for pricing defense talking points
+
+## Output
+Follow the output convention in `../../shared/output-convention.md`.
+- **Output directory**: `workspace/sales-prep/`
+- **File naming**: `{objection-topic}-{YYYY-MM-DD}.md`

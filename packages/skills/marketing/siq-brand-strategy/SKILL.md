@@ -89,3 +89,9 @@ All outputs should be saved as markdown files in this skill's directory:
 - All other marketing skills reference this skill's files via `../siq-brand-strategy/references/`
 - Keep files concise and scannable — use tables, bullet points, and headers
 - Update these files whenever the brand evolves; never let them go stale
+
+## Output
+Follow the output convention in `../../shared/output-convention.md`.
+- **Output directory**: `workspace/strategy/`
+- **File naming**: `{element-refined}-{YYYY-MM-DD}.md`
+- Continue saving internal reference data to `references/` as before.

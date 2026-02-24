@@ -86,3 +86,8 @@ Always populate or ask for:
 - Cross-reference ICP profiles from `../../shared/` if available for persona alignment
 - Sequences should feel like they come from a thoughtful human, not a template
 - Adjust cadence for enterprise (slower, more deliberate) vs. SMB (faster, higher volume)
+
+## Output
+Follow the output convention in `../../shared/output-convention.md`.
+- **Output directory**: `workspace/outreach/`
+- **File naming**: `{account-name}-{sequence-type}-{YYYY-MM-DD}.md`

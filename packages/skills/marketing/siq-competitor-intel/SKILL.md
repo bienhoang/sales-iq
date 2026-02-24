@@ -115,3 +115,8 @@ After analyzing a competitor, identify:
 4. Messaging analysis
 5. Positioning gap recommendations
 6. Monitoring schedule
+
+## Output
+Follow the output convention in `../../shared/output-convention.md`.
+- **Output directory**: `workspace/intel/`
+- **File naming**: `{competitor-name}-{doc-type}-{YYYY-MM-DD}.md`

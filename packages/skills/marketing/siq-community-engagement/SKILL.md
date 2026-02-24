@@ -139,3 +139,8 @@ Types:
 | Average response time | Under 4 hours | Weekly |
 | New members per week | Growing | Weekly |
 | Event attendance | 10%+ of active members | Per event |
+
+## Output
+Follow the output convention in `../../shared/output-convention.md`.
+- **Output directory**: `workspace/social/`
+- **File naming**: `{topic}-{platform}-{YYYY-MM-DD}.md`

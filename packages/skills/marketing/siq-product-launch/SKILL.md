@@ -123,3 +123,8 @@ Generate using `templates/launch-timeline.md`:
 4. Launch checklist
 5. Changelog entry
 6. In-app announcement copy (headline 50 chars, body 150 chars, CTA)
+
+## Output
+Follow the output convention in `../../shared/output-convention.md`.
+- **Output directory**: `workspace/strategy/`
+- **File naming**: `{product-name}-{doc-type}-{YYYY-MM-DD}.md`

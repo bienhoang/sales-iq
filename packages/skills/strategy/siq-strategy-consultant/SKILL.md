@@ -148,3 +148,8 @@ State which frameworks you are applying and why at the start of any multi-framew
 - [INDUSTRY-LENSES.md](references/INDUSTRY-LENSES.md) — 7 industry-specific adaptations (SaaS, FinTech, Healthcare, E-Commerce, Manufacturing, Professional Services, Marketplace)
 
 Load reference files on demand when deeper methodology, templates, or industry context is needed.
+
+## Output
+Follow the output convention in `../../shared/output-convention.md`.
+- **Output directory**: `workspace/strategy/`
+- **File naming**: `{topic}-{framework}-{YYYY-MM-DD}.md`

@@ -123,3 +123,8 @@ When scoring multiple leads, output a ranked comparison:
 - If a lead scores low on Champion but high everywhere else, flag it as the #1 risk
 - Requalify every deal at Stage 2→3 transition; circumstances change
 - Cross-reference ICP fit with `../../shared/` brand context if available
+
+## Output
+Follow the output convention in `../../shared/output-convention.md`.
+- **Output directory**: `workspace/intel/`
+- **File naming**: `{lead-name}-scorecard-{YYYY-MM-DD}.md`

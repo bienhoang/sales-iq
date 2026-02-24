@@ -163,3 +163,8 @@ Email 4 (Day 7)
 - **Plain text version**: Always include alongside HTML
 - **Link tracking**: UTM parameters on every link
 - **Deliverability**: Avoid spam triggers (ALL CAPS, excessive exclamation marks)
+
+## Output
+Follow the output convention in `../../shared/output-convention.md`.
+- **Output directory**: `workspace/emails/`
+- **File naming**: `{campaign-type}-{segment}-{YYYY-MM-DD}.md`

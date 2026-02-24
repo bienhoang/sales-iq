@@ -151,3 +151,8 @@ Before finalizing, verify against `references/seo-checklist.md`:
 - [ ] CTA is clear and relevant
 - [ ] Content is genuinely helpful (not just SEO-optimized)
 - [ ] Passes the "would I share this?" test
+
+## Output
+Follow the output convention in `../../shared/output-convention.md`.
+- **Output directory**: `workspace/content/`
+- **File naming**: `{topic-slug}-{content-type}-{YYYY-MM-DD}.md`

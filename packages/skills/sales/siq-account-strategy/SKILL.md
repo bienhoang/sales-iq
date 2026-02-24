@@ -79,3 +79,9 @@ Store all account context in `references/` so spoke skills can load it:
 - Refresh account files after every significant call or meeting
 - Use MEDDIC from `references/qualification-criteria.md` to score deal health
 - Pull brand/ICP context from `../../shared/` if available
+
+## Output
+Follow the output convention in `../../shared/output-convention.md`.
+- **Output directory**: `workspace/sales-prep/`
+- **File naming**: `{account-name}-{plan-type}-{YYYY-MM-DD}.md`
+- Continue saving internal reference data to `references/` as before.

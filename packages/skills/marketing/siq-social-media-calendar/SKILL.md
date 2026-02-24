@@ -93,3 +93,8 @@ When a product launch or campaign is active:
 - Key dates and campaign windows
 - Repurpose opportunities flagged
 - Next steps: which posts need to be created first (reference `/siq-social-media-post`)
+
+## Output
+Follow the output convention in `../../shared/output-convention.md`.
+- **Output directory**: `workspace/social/`
+- **File naming**: `{week-start-date}-calendar-{YYYY-MM-DD}.md`

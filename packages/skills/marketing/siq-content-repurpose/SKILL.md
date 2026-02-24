@@ -68,3 +68,8 @@ See `references/repurpose-matrix.md` for the full matrix. High-priority routes:
 | Case study | Social proof snippet (all channels) | Quick |
 | Email | LinkedIn post (expanded) | Quick |
 | Changelog | Feature announcement email | Medium |
+
+## Output
+Follow the output convention in `../../shared/output-convention.md`.
+- **Output directory**: `workspace/content/`
+- **File naming**: `{source-title}-{format}-{YYYY-MM-DD}.md`

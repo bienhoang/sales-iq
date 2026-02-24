@@ -126,3 +126,8 @@ See `../../shared/saas-benchmarks.md` for full benchmark reference.
 - End every section with 1-2 actionable takeaways
 - Keep executive summary to one screen (no scrolling)
 - Compare to previous period AND to targets
+
+## Output
+Follow the output convention in `../../shared/output-convention.md`.
+- **Output directory**: `workspace/reports/`
+- **File naming**: `{period}-{report-type}-{YYYY-MM-DD}.md`

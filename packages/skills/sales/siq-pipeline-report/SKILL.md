@@ -93,3 +93,8 @@ Generate reports using:
 - At-risk flags should include specific, actionable recommendations — not just "needs attention"
 - Reference `../siq-account-strategy/references/` for per-deal context when generating deal reviews
 - Coordinate with `siq-follow-up` for at-risk deal intervention sequences
+
+## Output
+Follow the output convention in `../../shared/output-convention.md`.
+- **Output directory**: `workspace/reports/`
+- **File naming**: `{period}-{report-type}-{YYYY-MM-DD}.md`

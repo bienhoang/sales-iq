@@ -118,3 +118,8 @@ For each prep session, generate a **Demo Prep Brief** using `templates/demo-scri
 - Prepare for 3 likely objections before every meeting
 - Always confirm next steps before the call ends — never leave without a committed action
 - Reference competitor intel from `../siq-account-strategy/references/` to set traps effectively
+
+## Output
+Follow the output convention in `../../shared/output-convention.md`.
+- **Output directory**: `workspace/sales-prep/`
+- **File naming**: `{account-name}-{prep-type}-{YYYY-MM-DD}.md`

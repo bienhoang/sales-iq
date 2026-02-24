@@ -152,3 +152,8 @@ Before finalizing any ad:
 | **Traffic** | Google (50%) + Meta (30%) + LinkedIn (20%) | Interest targeting |
 | **Leads** | LinkedIn (50%) + Meta (30%) + Google (20%) | Lookalike + retargeting |
 | **Conversions** | Google (40%) + Meta (40%) + LinkedIn (20%) | Retargeting heavy |
+
+## Output
+Follow the output convention in `../../shared/output-convention.md`.
+- **Output directory**: `workspace/ad-copy/`
+- **File naming**: `{campaign-name}-{platform}-{YYYY-MM-DD}.md`

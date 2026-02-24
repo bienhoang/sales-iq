@@ -111,3 +111,8 @@ By default, generate 3 variations per post:
 - [ ] Has visual direction
 - [ ] Is not overly promotional (value first)
 - [ ] Would YOU stop scrolling for this?
+
+## Output
+Follow the output convention in `../../shared/output-convention.md`.
+- **Output directory**: `workspace/social/`
+- **File naming**: `{topic}-{platform}-{YYYY-MM-DD}.md`

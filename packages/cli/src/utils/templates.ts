@@ -40,6 +40,26 @@ This project uses sales-iq skills installed at \`~/.claude/skills/\`.
 - \`brand-context.md\` — Brand voice, ICP, messaging guidelines (edit this!)
 - \`brand-context.json\` — Structured brand data for tools
 - \`.sales-iq.json\` — Project config (auto-managed)
+
+## Workspace
+Skills auto-save deliverables to \`workspace/\` organized by content type.
+Directories are created on-demand when skills generate output.
+
+| Directory | Content |
+|-----------|---------|
+| \`workspace/proposals/\` | Business proposals, pricing quotes |
+| \`workspace/emails/\` | Email campaigns, follow-up sequences |
+| \`workspace/outreach/\` | Cold email and LinkedIn sequences |
+| \`workspace/ad-copy/\` | Meta, Google, LinkedIn ad copy |
+| \`workspace/content/\` | SEO content, repurposed content |
+| \`workspace/social/\` | Social posts, calendars, community content |
+| \`workspace/intel/\` | Competitor analysis, lead scorecards |
+| \`workspace/reports/\` | Pipeline reports, marketing metrics |
+| \`workspace/strategy/\` | Brand strategy, consulting frameworks |
+| \`workspace/sales-prep/\` | Demo prep, objection playbooks, account plans |
+| \`workspace/research/\` | Research reports, brainstorm summaries |
+
+File naming: \`{descriptor}-{YYYY-MM-DD}.md\`
 `;
 }
 

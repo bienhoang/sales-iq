@@ -80,3 +80,8 @@ Generate proposals using the templates:
 - Reference case studies that match the prospect's industry and company size
 - Coordinate with `siq-objection-handling` to pre-empt likely objections in the proposal itself
 - After proposal is sent, use `siq-follow-up` post-proposal templates to maintain momentum
+
+## Output
+Follow the output convention in `../../shared/output-convention.md`.
+- **Output directory**: `workspace/proposals/`
+- **File naming**: `{account-name}-proposal-{YYYY-MM-DD}.md`
