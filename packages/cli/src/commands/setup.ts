@@ -1,3 +1,4 @@
+import { execSync } from 'node:child_process';
 import chalk from 'chalk';
 import ora from 'ora';
 import type { Command } from 'commander';
@@ -8,7 +9,7 @@ import { runDoctor } from './doctor.js';
 export function registerSetup(program: Command): void {
   program
     .command('setup')
-    .description('Install skills, configure MCP, and run health check')
+    .description('Install skills, dashboard, configure MCP, and run health check')
     .action(async () => {
       await runSetup();
     });
@@ -38,7 +39,18 @@ export async function runSetup(): Promise<void> {
     process.exit(1);
   }
 
-  // 2. Configure MCP server
+  // 2. Install dashboard globally (best-effort)
+  const dashSpinner = ora('Installing dashboard...').start();
+  try {
+    execSync('npm install -g @bienhoang/sales-iq-dashboard@latest', {
+      stdio: 'pipe',
+    });
+    dashSpinner.succeed('Dashboard installed (siq-dashboard)');
+  } catch {
+    dashSpinner.warn('Dashboard not installed — will use npx on demand');
+  }
+
+  // 3. Configure MCP server
   const mcpSpinner = ora('Configuring MCP server...').start();
   try {
     const settingsPath = await setupMcpServer();
@@ -47,7 +59,7 @@ export async function runSetup(): Promise<void> {
     mcpSpinner.fail(`MCP config failed: ${(err as Error).message}`);
   }
 
-  // 3. Health check
+  // 4. Health check
   console.log(chalk.dim('\n  Running health check...\n'));
   await runDoctor();
 

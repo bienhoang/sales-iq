@@ -106,20 +106,20 @@ if ! npm view @bienhoang/sales-iq --registry https://npm.pkg.github.com &>/dev/n
 fi
 ok "Token verified"
 
-# --- 5. Install CLI globally ---
+# --- 5. Install CLI + Dashboard globally ---
 echo ""
-info "Installing sales-iq CLI..."
-INSTALL_OUTPUT=$(npm install -g @bienhoang/sales-iq@latest 2>&1) && {
-  ok "CLI installed globally"
+info "Installing sales-iq CLI & dashboard..."
+INSTALL_OUTPUT=$(npm install -g @bienhoang/sales-iq@latest @bienhoang/sales-iq-dashboard@latest 2>&1) && {
+  ok "CLI + Dashboard installed globally"
 } || {
   # Check common failure causes
   if echo "$INSTALL_OUTPUT" | grep -qi "permission denied\|EACCES"; then
     warn "Permission denied. Retrying with sudo..."
-    sudo npm install -g @bienhoang/sales-iq@latest 2>/dev/null && {
-      ok "CLI installed globally (sudo)"
+    sudo npm install -g @bienhoang/sales-iq@latest @bienhoang/sales-iq-dashboard@latest 2>/dev/null && {
+      ok "CLI + Dashboard installed globally (sudo)"
     } || {
       warn "Global install failed. Using npx instead."
-      info "You can install later: sudo npm install -g @bienhoang/sales-iq@latest"
+      info "You can install later: sudo npm install -g @bienhoang/sales-iq@latest @bienhoang/sales-iq-dashboard@latest"
     }
   else
     warn "Global install failed. Using npx instead."

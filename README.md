@@ -3,7 +3,7 @@
 [![GitHub Packages](https://img.shields.io/badge/registry-GitHub%20Packages-blue)](https://github.com/bienhoang/sales-iq/packages)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-AI-powered sales and marketing toolkit for Claude Code. 20 ready-to-use skills for content, campaigns, strategy, and pipeline management.
+AI-powered sales and marketing toolkit for Claude Code. 20 ready-to-use skills, a workspace dashboard, and live data via MCP server.
 
 ## Quick Start
 
@@ -13,12 +13,12 @@ AI-powered sales and marketing toolkit for Claude Code. 20 ready-to-use skills f
 curl -fsSL https://raw.githubusercontent.com/bienhoang/sales-iq/main/setup.sh | bash
 ```
 
-Handles everything: Node.js, authentication, and skill installation. No questions asked.
+Handles everything: Node.js, authentication, skills, dashboard, and MCP config. No questions asked.
 
 Or if you already have Node.js 20+ with GitHub Packages configured:
 
 ```bash
-npm install -g @bienhoang/sales-iq
+npm install -g @bienhoang/sales-iq @bienhoang/sales-iq-dashboard
 sales-iq setup
 ```
 
@@ -101,7 +101,13 @@ Browse and edit workspace outputs in a local web UI:
 /siq-dashboard
 ```
 
-Runs on `http://localhost:4983` with a React-based editor for viewing and editing generated files.
+Opens `http://localhost:4983` with:
+- Category sidebar (proposals, emails, reports, plans, etc.)
+- Collapsible file tree with nested folder support
+- Rich markdown editor (TipTap) with live preview
+- Auto-discovery of workspace directories
+
+The dashboard is installed globally during setup. Falls back to `npx @bienhoang/sales-iq-dashboard` if not found.
 
 ### Live Data via MCP Server
 
@@ -113,11 +119,21 @@ sales-iq configure --mcp
 
 Supports: HubSpot, Mailchimp, Twitter/X, LinkedIn, Google Analytics 4, SEMrush.
 
+## What Gets Installed
+
+| Component | Location | Purpose |
+|-----------|----------|---------|
+| CLI (`sales-iq`) | Global npm | Setup, init, doctor, update commands |
+| Dashboard (`siq-dashboard`) | Global npm | Local web UI for workspace files |
+| Skills (20) | `~/.claude/skills/` | Claude Code slash commands |
+| MCP Server | `~/.claude/settings.json` | Live data from CRM/analytics |
+| Brand Context | `<project>/brand-context.md` | Per-project brand info |
+
 ## Commands
 
 | Command | Description |
 |---------|-------------|
-| `setup` | Silent install — skills + health check (no prompts) |
+| `setup` | Install skills + dashboard + MCP config + health check |
 | `init` | Create a project for a product/company (interactive wizard) |
 | `list` | Show installed skills |
 | `update` | Force-reinstall all skills |
@@ -136,6 +152,27 @@ sales-iq update
 
 # Remove everything
 sales-iq uninstall
+```
+
+## Architecture
+
+```
+sales-iq/                     # Monorepo (Turborepo + pnpm)
+├── packages/
+│   ├── cli/                  # CLI tool (@bienhoang/sales-iq)
+│   │   └── src/commands/     # setup, init, install, doctor, etc.
+│   ├── skills/               # 20 skills + dashboard skill
+│   │   ├── marketing/        # 11 marketing skills
+│   │   ├── sales/            # 8 sales skills
+│   │   ├── strategy/         # 1 strategy skill
+│   │   └── siq-dashboard/    # Dashboard skill (SKILL.md)
+│   ├── dashboard/            # Web dashboard (@bienhoang/sales-iq-dashboard)
+│   │   └── src/
+│   │       ├── client/       # React 19 + TailwindCSS 4
+│   │       └── server/       # Express.js API
+│   └── mcp-server/           # MCP server for live data
+├── setup.sh                  # One-command installer
+└── docs/                     # Documentation
 ```
 
 ## Advanced
@@ -160,6 +197,12 @@ Add to `~/.npmrc`:
 ### CLI commands
 
 ```bash
+# Install CLI and dashboard
+npm install -g @bienhoang/sales-iq @bienhoang/sales-iq-dashboard
+
+# Run setup (skills + MCP)
+sales-iq setup
+
 # Install specific clusters
 sales-iq install --skills marketing
 sales-iq install --skills sales,strategy
@@ -175,6 +218,9 @@ sales-iq configure --mcp
 
 # List installed skills
 sales-iq list
+
+# Run dashboard standalone
+siq-dashboard --dir ./my-project --port 5000
 ```
 
 </details>
