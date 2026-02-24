@@ -92,6 +92,23 @@ async function runInit(): Promise<void> {
     // brand-context.json — always update (structured data)
     await writeJson(path.join(projectDir, 'brand-context.json'), generateBrandContextJson(input));
 
+    // .claude/settings.json — MCP server config for this project
+    const claudeDir = path.join(projectDir, '.claude');
+    const settingsPath = path.join(claudeDir, 'settings.json');
+    await ensureDir(claudeDir);
+    const existingSettings = (await readJson<Record<string, unknown>>(settingsPath)) ?? {};
+    const mcpServers = (existingSettings.mcpServers as Record<string, unknown>) ?? {};
+    await writeJson(settingsPath, {
+      ...existingSettings,
+      mcpServers: {
+        ...mcpServers,
+        'sales-iq': {
+          command: 'npx',
+          args: ['@bienhoang/sales-iq-mcp-server'],
+        },
+      },
+    });
+
     // .sales-iq.json — create or update
     if (existingConfig) {
       const updated = {
