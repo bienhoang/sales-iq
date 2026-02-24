@@ -1,5 +1,5 @@
 import Anthropic from '@anthropic-ai/sdk';
-import type { Config } from 'sales-iq-core';
+import type { Config } from '@bienhoang/sales-iq-core';
 
 export const leadScoringToolDefinitions = [
   {

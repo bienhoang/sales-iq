@@ -56,12 +56,12 @@ importers:
       '@anthropic-ai/sdk':
         specifier: ^0.30
         version: 0.30.1
+      '@bienhoang/sales-iq-core':
+        specifier: workspace:*
+        version: link:../core
       '@modelcontextprotocol/sdk':
         specifier: ^1
         version: 1.26.0(zod@4.3.6)
-      sales-iq-core:
-        specifier: workspace:*
-        version: link:../core
 
   packages/skills: {}
 

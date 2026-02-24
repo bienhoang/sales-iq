@@ -1,9 +1,18 @@
 {
-  "name": "sales-iq-core",
+  "name": "@bienhoang/sales-iq-core",
   "version": "0.1.0",
   "description": "Shared types and utilities for sales-iq",
   "type": "module",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bienhoang/sales-iq.git",
+    "directory": "packages/core"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  },
   "exports": {
     ".": {
       "import": "./dist/index.js",

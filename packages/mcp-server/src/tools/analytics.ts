@@ -1,4 +1,4 @@
-import type { Config } from 'sales-iq-core';
+import type { Config } from '@bienhoang/sales-iq-core';
 
 export const analyticsToolDefinitions = [
   {

@@ -1,9 +1,18 @@
 {
-  "name": "sales-iq-mcp-server",
+  "name": "@bienhoang/sales-iq-mcp-server",
   "version": "0.1.0",
   "description": "MCP server for sales and marketing integrations",
   "type": "module",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bienhoang/sales-iq.git",
+    "directory": "packages/mcp-server"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  },
   "bin": {
     "sales-iq-mcp": "./dist/index.js"
   },
@@ -23,6 +32,6 @@
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1",
     "@anthropic-ai/sdk": "^0.30",
-    "sales-iq-core": "workspace:*"
+    "@bienhoang/sales-iq-core": "workspace:*"
   }
 }

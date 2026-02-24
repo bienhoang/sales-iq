@@ -1,8 +1,17 @@
 {
-  "name": "sales-iq-skills",
+  "name": "@bienhoang/sales-iq-skills",
   "version": "0.1.0",
   "description": "Claude Code skills for sales, marketing, and strategy",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bienhoang/sales-iq.git",
+    "directory": "packages/skills"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  },
   "files": [
     "marketing",
     "sales",

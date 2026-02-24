@@ -1,4 +1,4 @@
-import type { Config } from 'sales-iq-core';
+import type { Config } from '@bienhoang/sales-iq-core';
 
 // In-memory store for stub implementation
 const calendarEntries: Array<{ id: string; date: string; channel: string; content: string; status: string; createdAt: string }> = [];
