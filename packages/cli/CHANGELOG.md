@@ -1,5 +1,16 @@
 # @bienhoang/sales-iq
 
+## 1.2.0
+
+### Minor Changes
+
+- Add workspace output persistence: skills auto-save deliverables to workspace/ directory, MCP content calendar persists to JSON file
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @bienhoang/sales-iq-skills@1.1.0
+
 ## 1.1.0
 
 ### Minor Changes
