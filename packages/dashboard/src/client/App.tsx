@@ -58,7 +58,7 @@ export function App() {
   if (wsLoading) {
     mainContent = (
       <div className="flex flex-1 items-center justify-center">
-        <p className="text-sm text-gray-400">Loading workspace...</p>
+        <p className="text-sm text-slate-400">Loading workspace...</p>
       </div>
     );
   } else if (totalFiles === 0 && !isBrandSelected) {
@@ -85,19 +85,19 @@ export function App() {
   } else if (fileLoading || brandLoading) {
     mainContent = (
       <div className="flex flex-1 items-center justify-center">
-        <p className="text-sm text-gray-400">Loading...</p>
+        <p className="text-sm text-slate-400">Loading...</p>
       </div>
     );
   } else if (selectedCat) {
     mainContent = (
       <div className="flex flex-1 items-center justify-center">
-        <p className="text-sm text-gray-400">Select a file to view</p>
+        <p className="text-sm text-slate-400">Select a file to view</p>
       </div>
     );
   } else {
     mainContent = (
       <div className="flex flex-1 items-center justify-center">
-        <p className="text-sm text-gray-400">Select a category from the sidebar</p>
+        <p className="text-sm text-slate-400">Select a category from the sidebar</p>
       </div>
     );
   }

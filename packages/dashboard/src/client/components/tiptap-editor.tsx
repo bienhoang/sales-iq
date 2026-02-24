@@ -24,6 +24,7 @@ export function TiptapEditor({ content, filePath, saveEndpoint, onSaved }: Props
       Link.configure({ openOnClick: false }),
     ],
     content,
+    contentType: 'markdown',
     onUpdate() {
       setIsDirty(true);
     },
@@ -31,7 +32,7 @@ export function TiptapEditor({ content, filePath, saveEndpoint, onSaved }: Props
 
   const handleSave = useCallback(async () => {
     if (!editor) return;
-    const md = editor.getMarkdown?.() ?? editor.getText() ?? '';
+    const md = editor.getMarkdown();
     await save(md);
     setIsDirty(false);
     onSaved?.();

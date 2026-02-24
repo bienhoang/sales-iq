@@ -83,18 +83,20 @@ export function EditorToolbar({ editor, onSave, saving, isDirty }: Props) {
   };
 
   return (
-    <div className="flex items-center gap-1 border-b border-gray-200 bg-gray-50 px-2 py-1">
+    <div className="flex items-center gap-0.5 border-b border-slate-200 bg-white px-3 py-1.5">
       {BUTTONS.map((btn, i) => {
         if (btn.label === '|') {
-          return <span key={i} className="mx-1 text-gray-300">|</span>;
+          return <span key={i} className="mx-1.5 h-4 w-px bg-slate-200" />;
         }
         const active = btn.isActive?.(editor);
         return (
           <button
             key={btn.label + i}
             onClick={() => btn.action(editor)}
-            className={`rounded p-1.5 text-sm hover:bg-gray-200 ${
-              active ? 'bg-gray-200 font-bold' : ''
+            className={`rounded-md px-2 py-1 text-xs font-medium transition-colors ${
+              active
+                ? 'bg-blue-100 text-blue-700'
+                : 'text-slate-500 hover:bg-slate-100 hover:text-slate-700'
             }`}
             title={btn.label}
           >
@@ -104,20 +106,24 @@ export function EditorToolbar({ editor, onSave, saving, isDirty }: Props) {
       })}
       <button
         onClick={handleLink}
-        className="rounded p-1.5 text-sm hover:bg-gray-200"
+        className="rounded-md px-2 py-1 text-xs font-medium text-slate-500 hover:bg-slate-100 hover:text-slate-700 transition-colors"
         title="Link"
       >
         Link
       </button>
 
       <div className="flex-1" />
+
+      {isDirty && (
+        <span className="mr-2 text-[10px] text-amber-500 font-medium">Unsaved</span>
+      )}
       <button
         onClick={onSave}
         disabled={saving || !isDirty}
-        className={`rounded px-3 py-1 text-sm font-medium ${
+        className={`rounded-md px-4 py-1.5 text-xs font-semibold transition-colors ${
           isDirty
-            ? 'bg-blue-600 text-white hover:bg-blue-700'
-            : 'bg-gray-100 text-gray-400'
+            ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-sm'
+            : 'bg-slate-100 text-slate-400 cursor-default'
         }`}
       >
         {saving ? 'Saving...' : isDirty ? 'Save' : 'Saved'}

@@ -63,6 +63,7 @@ Each skill declares its `output_dir`. The full mapping:
 | `strategy` | `workspace/strategy/` | Brand strategy docs, consulting frameworks |
 | `sales-prep` | `workspace/sales-prep/` | Demo prep, objection playbooks, account plans |
 | `research` | `workspace/research/` | Research reports, brainstorm outputs |
+| `plans` | `workspace/plans/` | Strategy plans, campaign plans, GTM roadmaps |
 
 ---
 
