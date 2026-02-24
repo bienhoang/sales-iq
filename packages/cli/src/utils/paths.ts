@@ -15,7 +15,7 @@ export function getSkillsSourceDir(): string {
 
   try {
     const require = createRequire(import.meta.url);
-    const pkgPath = require.resolve('sales-iq-skills/package.json');
+    const pkgPath = require.resolve('@bienhoang/sales-iq-skills/package.json');
     return path.dirname(pkgPath);
   } catch {
     // Not installed as separate package — use monorepo path
