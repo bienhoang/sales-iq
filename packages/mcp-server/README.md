@@ -1,15 +1,26 @@
-# sales-iq-mcp-server
+# @bienhoang/sales-iq-mcp-server
 
 MCP server for sales and marketing integrations. 14 tools across 6 categories.
 
 ## Setup
 
+First, set up GitHub Packages authentication (one-time setup):
+
+1. Create a GitHub Personal Access Token with `read:packages` scope: https://github.com/settings/tokens/new
+2. Add to `~/.npmrc`:
+```
+@bienhoang:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN
+```
+
+Then configure:
+
 ```bash
 # Via CLI (recommended)
-npx sales-iq configure --mcp
+npx @bienhoang/sales-iq configure --mcp
 
 # Or run directly
-npx sales-iq-mcp
+npx @bienhoang/sales-iq-mcp-server
 ```
 
 ## Tools
@@ -53,7 +64,7 @@ All keys are optional. Missing keys return a descriptive error, not a crash.
   "mcpServers": {
     "sales-iq": {
       "command": "npx",
-      "args": ["sales-iq-mcp"]
+      "args": ["@bienhoang/sales-iq-mcp-server"]
     }
   }
 }

@@ -4,21 +4,38 @@
 
 - Node.js 20+
 - Claude Code (claude.ai/code)
+- GitHub Personal Access Token with `read:packages` scope
+
+## GitHub Packages Setup
+
+All sales-iq packages are published to GitHub Packages as private packages. Set this up once:
+
+1. Create a GitHub Personal Access Token (PAT): https://github.com/settings/tokens/new
+   - Select `read:packages` scope
+   - Copy the token
+
+2. Add to `~/.npmrc`:
+```
+@bienhoang:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN
+```
+
+Replace `YOUR_GITHUB_TOKEN` with your PAT from step 1.
 
 ## Install
 
 Install all skills into your Claude Code configuration:
 
 ```bash
-npx sales-iq install --skills all
+npx @bienhoang/sales-iq install --skills all
 ```
 
 To install a single cluster only:
 
 ```bash
-npx sales-iq install --skills marketing
-npx sales-iq install --skills sales
-npx sales-iq install --skills strategy
+npx @bienhoang/sales-iq install --skills marketing
+npx @bienhoang/sales-iq install --skills sales
+npx @bienhoang/sales-iq install --skills strategy
 ```
 
 Skills are written to `~/.claude/skills/` and are immediately available in Claude Code.
@@ -28,7 +45,7 @@ Skills are written to `~/.claude/skills/` and are immediately available in Claud
 Set your brand context so all skills produce on-brand output:
 
 ```bash
-npx sales-iq configure --brand \
+npx @bienhoang/sales-iq configure --brand \
   --name "YourSaaS" \
   --industry "developer-tools" \
   --audience "engineering managers" \
@@ -42,7 +59,7 @@ This writes `~/.claude/skills/shared/brand.md`. All marketing and sales skills l
 Add the MCP server to Claude Code for live data access:
 
 ```bash
-npx sales-iq configure --mcp
+npx @bienhoang/sales-iq configure --mcp
 ```
 
 This appends the MCP block to your Claude Code settings. Set the required API keys as environment variables before starting Claude Code:
@@ -89,11 +106,11 @@ ls ~/.claude/skills/sales/
 ls ~/.claude/skills/strategy/
 ```
 
-If the directory is missing, re-run `npx sales-iq install --skills all`.
+If the directory is missing, re-run `npx @bienhoang/sales-iq install --skills all`.
 
 **MCP tools not available**
 
-Check that `sales-iq-mcp` appears in Claude Code's MCP panel. If not, re-run `npx sales-iq configure --mcp` and restart Claude Code.
+Check that `@bienhoang/sales-iq-mcp-server` appears in Claude Code's MCP panel. If not, re-run `npx @bienhoang/sales-iq configure --mcp` and restart Claude Code.
 
 **API errors from MCP tools**
 

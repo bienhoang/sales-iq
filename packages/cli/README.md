@@ -1,13 +1,24 @@
-# sales-iq
+# @bienhoang/sales-iq
 
 CLI for installing sales-iq skills and configuring the MCP server.
 
 ## Install
 
+First, set up GitHub Packages authentication (one-time setup):
+
+1. Create a GitHub Personal Access Token with `read:packages` scope: https://github.com/settings/tokens/new
+2. Add to `~/.npmrc`:
+```
+@bienhoang:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN
+```
+
+Then install the CLI:
+
 ```bash
-npm install -g sales-iq
+npm install -g @bienhoang/sales-iq
 # or use directly via npx (no install required)
-npx sales-iq <command>
+npx @bienhoang/sales-iq <command>
 ```
 
 ## Commands
@@ -18,12 +29,12 @@ Install skills into `~/.claude/skills/`.
 
 ```bash
 # Install all clusters
-npx sales-iq install --skills all
+npx @bienhoang/sales-iq install --skills all
 
 # Install a single cluster
-npx sales-iq install --skills marketing
-npx sales-iq install --skills sales
-npx sales-iq install --skills strategy
+npx @bienhoang/sales-iq install --skills marketing
+npx @bienhoang/sales-iq install --skills sales
+npx @bienhoang/sales-iq install --skills strategy
 ```
 
 ### `configure --brand`
@@ -31,7 +42,7 @@ npx sales-iq install --skills strategy
 Write brand context to `~/.claude/skills/shared/brand.md`.
 
 ```bash
-npx sales-iq configure --brand \
+npx @bienhoang/sales-iq configure --brand \
   --name "YourSaaS" \
   --industry "developer-tools" \
   --audience "engineering managers" \
@@ -45,7 +56,7 @@ All flags are optional. Omitted values use existing values from the brand file.
 Append the MCP server block to Claude Code settings.
 
 ```bash
-npx sales-iq configure --mcp
+npx @bienhoang/sales-iq configure --mcp
 ```
 
 Writes to `~/.claude/settings.json` by default. Restart Claude Code after running.

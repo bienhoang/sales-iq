@@ -1,33 +1,50 @@
 # sales-iq
 
-[![npm](https://img.shields.io/npm/v/sales-iq)](https://www.npmjs.com/package/sales-iq)
+[![GitHub Packages](https://img.shields.io/badge/registry-GitHub%20Packages-blue)](https://github.com/bienhoang/sales-iq/packages)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Sales and marketing AI toolkit for Claude Code. Install skills, configure your brand, connect live data via MCP.
 
-## Quick Start
+## Installation
+
+### 1. Create a GitHub Personal Access Token
+
+Go to **[GitHub Settings > Developer Settings > Personal Access Tokens > Tokens (classic)](https://github.com/settings/tokens/new)** and create a token with `read:packages` scope.
+
+### 2. Configure npm to use GitHub Packages
+
+Add this to your **`~/.npmrc`** (global, one-time setup):
+
+```
+@bienhoang:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN
+```
+
+> Replace `YOUR_GITHUB_TOKEN` with the PAT from step 1.
+
+### 3. Install and run
 
 ```bash
-# 1. Install all skills into Claude Code
-npx sales-iq install --skills all
+# Install all skills into Claude Code
+npx @bienhoang/sales-iq install --skills all
 
-# 2. Set your brand context
-npx sales-iq configure --brand --name "YourSaaS" --industry "developer-tools"
+# Set your brand context
+npx @bienhoang/sales-iq configure --brand --name "YourSaaS" --industry "developer-tools"
 
-# 3. Connect live data (CRM, email, social, analytics)
-npx sales-iq configure --mcp
+# Connect live data (CRM, email, social, analytics)
+npx @bienhoang/sales-iq configure --mcp
 ```
 
 Then open Claude Code and run `/siq-brand-strategy` to begin.
 
 ## Packages
 
-| Package | npm | Description |
-|---------|-----|-------------|
-| `sales-iq` | [![npm](https://img.shields.io/npm/v/sales-iq)](https://www.npmjs.com/package/sales-iq) | CLI — install skills, configure brand and MCP |
-| `sales-iq-skills` | [![npm](https://img.shields.io/npm/v/sales-iq-skills)](https://www.npmjs.com/package/sales-iq-skills) | 20 Claude Code skills across 3 clusters |
-| `sales-iq-mcp-server` | [![npm](https://img.shields.io/npm/v/sales-iq-mcp-server)](https://www.npmjs.com/package/sales-iq-mcp-server) | MCP server with 14 tools for live integrations |
-| `sales-iq-core` | [![npm](https://img.shields.io/npm/v/sales-iq-core)](https://www.npmjs.com/package/sales-iq-core) | Shared types and utilities |
+| Package | Description |
+|---------|-------------|
+| `@bienhoang/sales-iq` | CLI — install skills, configure brand and MCP |
+| `@bienhoang/sales-iq-skills` | 20 Claude Code skills across 3 clusters |
+| `@bienhoang/sales-iq-mcp-server` | MCP server with 14 tools for live integrations |
+| `@bienhoang/sales-iq-core` | Shared types and utilities |
 
 ## Skills
 

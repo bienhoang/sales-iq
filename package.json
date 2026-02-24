@@ -1,5 +1,5 @@
 {
-  "name": "sales-iq-monorepo",
+  "name": "sales-iq",
   "private": true,
   "packageManager": "pnpm@9.15.0",
   "scripts": {

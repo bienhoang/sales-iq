@@ -1,12 +1,14 @@
-# sales-iq-core
+# @bienhoang/sales-iq-core
 
-Shared types and utilities for the sales-iq monorepo. Used internally by `sales-iq-mcp-server`.
+Shared types and utilities for the sales-iq monorepo. Used internally by `@bienhoang/sales-iq-mcp-server`.
 
 ## Usage
 
 ```ts
-import type { Config, Contact, Deal, LeadScore } from 'sales-iq-core';
+import type { Config, Contact, Deal, LeadScore } from '@bienhoang/sales-iq-core';
 ```
+
+> This is an internal package. Most users interact with it via `@bienhoang/sales-iq-mcp-server`.
 
 ## Types
 
