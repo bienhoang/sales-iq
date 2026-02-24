@@ -1,6 +1,6 @@
 {
   "name": "@bienhoang/sales-iq-skills",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "Claude Code skills for sales, marketing, and strategy",
   "license": "MIT",
   "repository": {
@@ -18,10 +18,11 @@
     "strategy",
     "shared",
     "siq-brainstorm",
-    "siq-scout",
-    "siq-sequential-thinking",
+    "siq-dashboard",
     "siq-docs-seeker",
+    "siq-plan",
     "siq-research",
-    "siq-dashboard"
+    "siq-scout",
+    "siq-sequential-thinking"
   ]
 }
