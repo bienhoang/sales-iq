@@ -43,5 +43,6 @@ export async function runSetup(): Promise<void> {
 
   // Next steps
   console.log(chalk.bold('\n  Next step:\n'));
-  console.log(chalk.cyan('    sales-iq init') + chalk.dim('  — create a project for your product\n'));
+  console.log(chalk.cyan('    sales-iq init') + chalk.dim('  — create a project for your product'));
+  console.log(chalk.dim('    (or: npx @bienhoang/sales-iq init)\n'));
 }

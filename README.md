@@ -18,14 +18,15 @@ Handles everything: Node.js, authentication, and skill installation. No question
 Or if you already have Node.js 20+ with GitHub Packages configured:
 
 ```bash
-npx @bienhoang/sales-iq setup
+npm install -g @bienhoang/sales-iq --registry https://npm.pkg.github.com
+sales-iq setup
 ```
 
 ### 2. Create a project
 
 ```bash
 cd ~/projects
-sales-iq init
+sales-iq init          # or: npx @bienhoang/sales-iq init
 ```
 
 Answer a few questions about your product/company. A project folder is created with your brand context.

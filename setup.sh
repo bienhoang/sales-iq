@@ -106,12 +106,22 @@ if ! npm view @bienhoang/sales-iq --registry https://npm.pkg.github.com &>/dev/n
 fi
 ok "Token verified"
 
-# --- 5. Install skills (silent) ---
+# --- 5. Install CLI globally ---
 echo ""
-info "Installing sales-iq skills..."
+info "Installing sales-iq CLI..."
+npm install -g @bienhoang/sales-iq@latest --registry https://npm.pkg.github.com 2>/dev/null || {
+  warn "Global install failed. You can still use: npx @bienhoang/sales-iq <command>"
+}
+
+# --- 6. Install skills (silent) ---
+info "Installing skills..."
 echo ""
 
-npx @bienhoang/sales-iq@latest setup
+if command -v sales-iq &> /dev/null; then
+  sales-iq setup
+else
+  npx @bienhoang/sales-iq@latest setup
+fi
 
 echo ""
 ok "Installation complete!"
