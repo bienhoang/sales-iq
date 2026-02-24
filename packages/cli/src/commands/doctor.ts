@@ -5,7 +5,6 @@ import type { Command } from 'commander';
 import {
   getGlobalSkillsDir,
   getClaudeSettingsPath,
-  SKILL_CLUSTERS,
 } from '../utils/paths.js';
 import { fileExists, readJson, listDirs, readText } from '../utils/file-ops.js';
 
@@ -74,16 +73,16 @@ export async function runDoctor(): Promise<DoctorResult> {
     result.checks.push({ label: 'skills', status: 'fail' });
   }
 
-  // 4. Brand context
+  // 4. Brand context (now per-project via init, global is legacy/optional)
   const brandPath = path.join(skillsDir, 'shared', 'brand-context.md');
   if (await fileExists(brandPath)) {
-    console.log(`${PASS} brand-context.md exists`);
+    console.log(`${PASS} brand-context.md (global/legacy)`);
     result.checks.push({ label: 'brand-context.md', status: 'pass' });
   } else {
-    console.log(`${FAIL} brand-context.md missing`);
-    console.log(chalk.dim('       Run: sales-iq setup'));
-    result.issues++;
-    result.checks.push({ label: 'brand-context.md', status: 'fail' });
+    console.log(`${WARN} No global brand-context.md (use per-project instead)`);
+    console.log(chalk.dim('       Run: sales-iq init  — creates project with brand context'));
+    result.warnings++;
+    result.checks.push({ label: 'brand-context.md', status: 'warn' });
   }
 
   // 5. MCP config (optional)

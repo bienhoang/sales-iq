@@ -106,13 +106,19 @@ if ! npm view @bienhoang/sales-iq --registry https://npm.pkg.github.com &>/dev/n
 fi
 ok "Token verified"
 
-# --- 5. Run interactive wizard ---
+# --- 5. Install skills (silent) ---
 echo ""
-info "Starting sales-iq setup wizard..."
+info "Installing sales-iq skills..."
 echo ""
 
-npx @bienhoang/sales-iq@latest setup < /dev/tty
+npx @bienhoang/sales-iq@latest setup
 
 echo ""
-ok "All done! Open Claude Code and try: /siq-brand-strategy"
+ok "Installation complete!"
+echo ""
+info "Create your first project:"
+echo ""
+echo -e "    ${CYAN}sales-iq init${NC}"
+echo ""
+info "This will set up a project directory for your product/company."
 echo ""

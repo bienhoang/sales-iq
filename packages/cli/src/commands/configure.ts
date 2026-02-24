@@ -1,7 +1,7 @@
 import path from 'path';
 import chalk from 'chalk';
 import type { Command } from 'commander';
-import { getClaudeSettingsPath, getGlobalSkillsDir, getLocalSkillsDir } from '../utils/paths.js';
+import { getClaudeSettingsPath, getGlobalSkillsDir } from '../utils/paths.js';
 import { readJson, writeJson, ensureDir } from '../utils/file-ops.js';
 
 interface ConfigureOptions {
@@ -45,7 +45,7 @@ export function registerConfigure(program: Command): void {
 }
 
 async function configureMcp(opts: ConfigureOptions): Promise<void> {
-  const settingsPath = getClaudeSettingsPath(!opts.global ? true : true);
+  const settingsPath = getClaudeSettingsPath(true);
   const existing = (await readJson<ClaudeSettings>(settingsPath)) ?? {};
 
   const updated: ClaudeSettings = {
@@ -64,6 +64,9 @@ async function configureMcp(opts: ConfigureOptions): Promise<void> {
 }
 
 async function configureBrand(opts: ConfigureOptions): Promise<void> {
+  console.log(chalk.yellow('\n  Note: --brand writes to global ~/.claude/skills/shared/.'));
+  console.log(chalk.yellow('  For per-project brand context, use: sales-iq init\n'));
+
   const skillsDir = getGlobalSkillsDir();
   const sharedDir = path.join(skillsDir, 'shared');
   const brandContextPath = path.join(sharedDir, 'brand-context.md');

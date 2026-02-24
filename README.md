@@ -7,27 +7,49 @@ AI-powered sales and marketing toolkit for Claude Code. 20 ready-to-use skills f
 
 ## Quick Start
 
-### Option A: One-command setup (recommended)
+### 1. Install (one-time)
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/bienhoang/sales-iq/main/setup.sh | bash
 ```
 
-Handles everything: Node.js, authentication, skill installation, and brand setup.
+Handles everything: Node.js, authentication, and skill installation. No questions asked.
 
-### Option B: Already have Node.js 20+
+Or if you already have Node.js 20+ with GitHub Packages configured:
 
 ```bash
 npx @bienhoang/sales-iq setup
 ```
 
-Interactive wizard — no flags needed.
+### 2. Create a project
 
-### Then open Claude Code and run:
+```bash
+cd ~/projects
+sales-iq init
+```
 
+Answer a few questions about your product/company. A project folder is created with your brand context.
+
+### 3. Start working
+
+```bash
+cd my-product
+claude
 ```
-/siq-brand-strategy
+
+Claude Code automatically loads your brand context and activates sales-iq skills.
+
+## Multi-Product Support
+
+Create separate projects for each product or brand:
+
+```bash
+sales-iq init    # → my-saas-product/
+sales-iq init    # → my-agency-brand/
+sales-iq init    # → client-project/
 ```
+
+Each project has its own brand context. Switch between them by `cd`-ing into the project folder.
 
 ## What's Included
 
@@ -80,6 +102,18 @@ sales-iq configure --mcp
 
 Supports: HubSpot, Mailchimp, Twitter/X, LinkedIn, Google Analytics 4, SEMrush.
 
+## Commands
+
+| Command | Description |
+|---------|-------------|
+| `setup` | Silent install — skills + health check (no prompts) |
+| `init` | Create a project for a product/company (interactive wizard) |
+| `list` | Show installed skills |
+| `update` | Force-reinstall all skills |
+| `doctor` | Check installation health |
+| `configure` | Configure MCP server |
+| `uninstall` | Remove all skills and config |
+
 ## Maintenance
 
 ```bash
@@ -122,7 +156,7 @@ sales-iq install --skills sales,strategy
 # Install all with force overwrite
 sales-iq install --skills all --force
 
-# Configure brand via flags
+# Configure brand via flags (global/legacy)
 sales-iq configure --brand --name "YourSaaS" --industry "developer-tools"
 
 # Configure MCP server

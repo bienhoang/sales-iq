@@ -4,6 +4,7 @@ import { registerConfigure } from './commands/configure.js';
 import { registerUpdate } from './commands/update.js';
 import { registerList } from './commands/list.js';
 import { registerSetup } from './commands/setup.js';
+import { registerInit } from './commands/init.js';
 import { registerDoctor } from './commands/doctor.js';
 import { registerUninstall } from './commands/uninstall.js';
 
@@ -19,6 +20,7 @@ registerConfigure(program);
 registerUpdate(program);
 registerList(program);
 registerSetup(program);
+registerInit(program);
 registerDoctor(program);
 registerUninstall(program);
 
