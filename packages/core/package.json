@@ -1,6 +1,6 @@
 {
   "name": "@bienhoang/sales-iq-core",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Shared types and utilities for sales-iq",
   "type": "module",
   "license": "MIT",
