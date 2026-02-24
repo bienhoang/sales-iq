@@ -109,7 +109,7 @@ ok "Token verified"
 # --- 5. Install CLI globally ---
 echo ""
 info "Installing sales-iq CLI..."
-npm install -g @bienhoang/sales-iq@latest --registry https://npm.pkg.github.com 2>/dev/null || {
+npm install -g @bienhoang/sales-iq@latest 2>/dev/null || {
   warn "Global install failed. You can still use: npx @bienhoang/sales-iq <command>"
 }
 

@@ -18,7 +18,7 @@ Handles everything: Node.js, authentication, and skill installation. No question
 Or if you already have Node.js 20+ with GitHub Packages configured:
 
 ```bash
-npm install -g @bienhoang/sales-iq --registry https://npm.pkg.github.com
+npm install -g @bienhoang/sales-iq
 sales-iq setup
 ```
 
