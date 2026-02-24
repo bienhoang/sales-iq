@@ -74,13 +74,13 @@ else
   echo -e "  ${BOLD}3.${NC} Scope: check ${CYAN}read:packages${NC} only"
   echo -e "  ${BOLD}4.${NC} Click ${CYAN}Generate token${NC} and copy it"
   echo ""
-  read -rp "  Press Enter to open GitHub in your browser..."
+  read -rp "  Press Enter to open GitHub in your browser..." < /dev/tty
 
   $OPEN_CMD "https://github.com/settings/tokens/new?scopes=read:packages&description=sales-iq" 2>/dev/null || \
     warn "Could not open browser. Go to: https://github.com/settings/tokens/new"
 
   echo ""
-  read -rsp "  Paste your GitHub token here (hidden): " GH_TOKEN
+  read -rsp "  Paste your GitHub token here (hidden): " GH_TOKEN < /dev/tty
   echo ""
 
   if [ -z "$GH_TOKEN" ]; then
@@ -111,7 +111,7 @@ echo ""
 info "Starting sales-iq setup wizard..."
 echo ""
 
-npx @bienhoang/sales-iq@latest setup
+npx @bienhoang/sales-iq@latest setup < /dev/tty
 
 echo ""
 ok "All done! Open Claude Code and try: /siq-brand-strategy"
