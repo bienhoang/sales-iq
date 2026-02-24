@@ -1,6 +1,6 @@
 {
   "name": "@bienhoang/sales-iq",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "CLI for installing sales-iq skills and configuring MCP server",
   "type": "module",
   "license": "MIT",
@@ -25,7 +25,7 @@
     "lint": "eslint src/"
   },
   "dependencies": {
-    "@bienhoang/sales-iq-skills": "workspace:*",
+    "@bienhoang/sales-iq-skills": "^1.3.2",
     "chalk": "^5",
     "commander": "^12",
     "ora": "^8",
