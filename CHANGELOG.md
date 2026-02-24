@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.1] - 2026-02-24
+
+### Fixed
+
+- Fix `curl | bash` stdin conflict — interactive prompts now work correctly via `/dev/tty` redirect
+- Remove cluster selection prompt — all skills install by default
+
 ## [1.0.0] - 2026-02-24
 
 ### Added
