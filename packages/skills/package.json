@@ -21,6 +21,7 @@
     "siq-scout",
     "siq-sequential-thinking",
     "siq-docs-seeker",
-    "siq-research"
+    "siq-research",
+    "siq-dashboard"
   ]
 }

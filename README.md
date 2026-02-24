@@ -93,6 +93,16 @@ Start with `/siq-account-strategy` to define your sales motion:
 |-------|-------------|
 | `/siq-strategy-consultant` | 10 frameworks: SWOT, Porter's, Blue Ocean, JTBD, and more |
 
+### Workspace Dashboard
+
+Browse and edit workspace outputs in a local web UI:
+
+```
+/siq-dashboard
+```
+
+Runs on `http://localhost:4983` with a React-based editor for viewing and editing generated files.
+
 ### Live Data via MCP Server
 
 Connect CRM, email, social, and analytics for real-time data in your skills:

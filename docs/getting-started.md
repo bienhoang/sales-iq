@@ -46,6 +46,13 @@ For strategy:
 /siq-strategy-consultant
 ```
 
+To browse and edit your workspace outputs in a local dashboard:
+```
+/siq-dashboard
+```
+
+This opens a web UI on `http://localhost:4983` for viewing and editing generated files with a rich text editor.
+
 ## Check Installation
 
 Run the doctor command to verify everything is set up correctly:
