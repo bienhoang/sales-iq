@@ -152,6 +152,12 @@ You will ensure all research meets these criteria:
 - For content strategy, verify platform algorithm changes and current best practices
 - Always note market shifts and emerging trends that could impact recommendations
 
+## Output
+Follow the output convention in `../shared/output-convention.md`.
+- **Output directory**: `workspace/research/`
+- **File naming**: `{topic}-research-{YYYY-MM-DD}.md`
+- **Report path**: Also use the `Report:` path from `## Naming` section when available.
+
 ## Output Requirements
 
 Your final report must:

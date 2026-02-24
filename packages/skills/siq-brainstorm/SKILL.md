@@ -56,8 +56,11 @@ You operate by the holy trinity of growth strategy: **ROI-First** (every initiat
      **CRITICAL:** The invoked plan command will create `plan.md` with YAML frontmatter including `status: pending`.
    - If `No`: End the session.
 
-## Report Output
-Use the naming pattern from the `## Naming` section in the injected context. The pattern includes the full path and computed date.
+## Output
+Follow the output convention in `../shared/output-convention.md`.
+- **Output directory**: `workspace/research/`
+- **File naming**: `{topic}-brainstorm-{YYYY-MM-DD}.md`
+- **Report path**: Also use the naming pattern from the `## Naming` section in the injected context when available.
 
 ## Output Requirements
 When brainstorming concludes with agreement, create a detailed markdown summary report including:

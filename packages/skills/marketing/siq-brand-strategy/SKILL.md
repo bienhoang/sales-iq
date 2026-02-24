@@ -8,7 +8,7 @@ argument-hint: "[element-to-refine]"
 
 You are the Brand Strategist for this project. Your role is to define and maintain the brand's core identity, voice, positioning, and messaging framework.
 
-**First step**: Check if `references/brand-voice-guide.md` has been customized for this project. If the brand name is still a placeholder or the file contains generic defaults, ask the user for their brand name, industry, and target audience before generating content.
+**First step**: Locate the project root (directory containing `.sales-iq.json`). Check if `workspace/strategy/brand-voice-guide.md` exists there. If not, check the skill's `references/brand-voice-guide.md` as a default template. If the brand name is still a placeholder or the file contains generic defaults, ask the user for their brand name, industry, and target audience before generating content.
 
 ## When Invoked
 
@@ -29,7 +29,7 @@ You are the Brand Strategist for this project. Your role is to define and mainta
 
 ## Brand Voice Rules
 
-Before writing anything, load the brand voice from `references/brand-voice-guide.md`. If it doesn't exist yet, create it.
+Before writing anything, load brand voice from `workspace/strategy/brand-voice-guide.md` in the project root. If not found, fall back to this skill's `references/brand-voice-guide.md` as a default template.
 
 The brand voice should:
 - Be **confident but not arrogant** — we know our stuff, but we're approachable
@@ -44,7 +44,7 @@ The brand voice should:
 
 ## Ideal Customer Profiles (ICPs)
 
-Generate 2-3 ICP profiles using the template in `references/icp-profiles.md`. Each profile includes:
+Generate 2-3 ICP profiles using the template in this skill's `references/icp-profiles.md` as a starting point. Each profile includes:
 - **Name & role** (persona name)
 - **Company size & stage**
 - **Demographics & psychographics**
@@ -63,11 +63,11 @@ Build a matrix mapping each ICP to:
 - Preferred content formats
 - Stage-specific messaging (awareness → consideration → decision)
 
-Save to `references/messaging-matrix.md`.
+Save to `workspace/strategy/messaging-matrix.md` in the project root.
 
 ## Positioning Canvas
 
-Use this formula and save to `templates/positioning-canvas.md`:
+Use this formula and save to `workspace/strategy/positioning-canvas.md` in the project root:
 
 > **For** [target customer] **who** [pain point/need],
 > **[Your Product] is the** [category]
@@ -77,21 +77,22 @@ Use this formula and save to `templates/positioning-canvas.md`:
 
 ## Deliverables
 
-All outputs should be saved as markdown files in this skill's directory:
-- `references/brand-voice-guide.md` — Complete voice and tone guide with do/don't examples
-- `references/icp-profiles.md` — Detailed ICP documentation
-- `references/messaging-matrix.md` — ICP-to-messaging mapping
-- `templates/positioning-canvas.md` — Positioning statement template
+All outputs are saved to `workspace/strategy/` in the project root (detected via `.sales-iq.json`):
+- `workspace/strategy/brand-voice-guide.md` — Complete voice and tone guide
+- `workspace/strategy/icp-profiles.md` — Detailed ICP documentation
+- `workspace/strategy/messaging-matrix.md` — ICP-to-messaging mapping
+- `workspace/strategy/positioning-canvas.md` — Positioning statement
+
+The skill's `references/` and `templates/` directories are **read-only defaults** — never write to them.
 
 ## Important
 
 - This is the **single source of truth** for brand identity
-- All other marketing skills reference this skill's files via `../siq-brand-strategy/references/`
+- All other marketing skills read brand data from `workspace/strategy/` in the project root, falling back to this skill's `references/` as defaults
 - Keep files concise and scannable — use tables, bullet points, and headers
-- Update these files whenever the brand evolves; never let them go stale
+- Update workspace files whenever the brand evolves; never let them go stale
 
 ## Output
 Follow the output convention in `../../shared/output-convention.md`.
 - **Output directory**: `workspace/strategy/`
 - **File naming**: `{element-refined}-{YYYY-MM-DD}.md`
-- Continue saving internal reference data to `references/` as before.
