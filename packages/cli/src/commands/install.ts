@@ -1,4 +1,5 @@
 import path from 'path';
+import fs from 'fs/promises';
 import chalk from 'chalk';
 import type { Command } from 'commander';
 import {
@@ -57,6 +58,8 @@ export async function installSkills(opts: InstallOptions): Promise<InstallResult
   const errors: string[] = [];
 
   // Flatten: copy each siq-* subdirectory directly into ~/.claude/skills/
+  // Cluster skills are nested (e.g. marketing/siq-brand-strategy/) but installed flat (siq-brand-strategy/).
+  // Relative paths like ../../shared/ must be rewritten to ../shared/ after flattening.
   for (const cluster of clusters) {
     const clusterSrc = path.join(sourceDir, cluster);
 
@@ -79,6 +82,7 @@ export async function installSkills(opts: InstallOptions): Promise<InstallResult
 
       try {
         await copyDir(src, dest);
+        await fixFlattenedPaths(dest, cluster);
         installed++;
       } catch (err) {
         errors.push(`${skillDir}/: ${(err as Error).message}`);
@@ -151,4 +155,31 @@ function resolveClusters(input: string): SkillCluster[] {
     .split(',')
     .map((s) => s.trim() as SkillCluster)
     .filter((s) => (SKILL_CLUSTERS as readonly string[]).includes(s));
+}
+
+/**
+ * Fix relative paths and inject cluster metadata after flattening.
+ * Cluster skills use ../../ to reach the skills root (e.g. ../../shared/),
+ * but after flattening one level of nesting, it should be ../ instead.
+ * Also injects `cluster` into SKILL.md frontmatter for `list` command grouping.
+ */
+async function fixFlattenedPaths(skillDir: string, cluster: string): Promise<void> {
+  const entries = await fs.readdir(skillDir, { withFileTypes: true, recursive: true });
+
+  for (const entry of entries) {
+    if (!entry.isFile() || !entry.name.endsWith('.md')) continue;
+
+    const filePath = path.join(entry.parentPath ?? entry.path, entry.name);
+    let content = await fs.readFile(filePath, 'utf-8');
+
+    // ../../shared/ → ../shared/ (skills root reference)
+    content = content.replace(/\.\.\/\.\.\/shared\//g, '../shared/');
+
+    // Inject cluster into SKILL.md frontmatter
+    if (entry.name === 'SKILL.md' && content.startsWith('---\n')) {
+      content = content.replace(/^---\n/, `---\ncluster: ${cluster}\n`);
+    }
+
+    await fs.writeFile(filePath, content, 'utf-8');
+  }
 }

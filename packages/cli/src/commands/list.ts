@@ -51,27 +51,24 @@ export function registerList(program: Command): void {
     });
 }
 
+/** Collect skills from flat installed structure (siq-* dirs at targetDir root). */
 async function collectSkills(targetDir: string): Promise<SkillInfo[]> {
-  const clusters = await listDirs(targetDir);
+  const dirs = await listDirs(targetDir);
   const skills: SkillInfo[] = [];
 
-  for (const cluster of clusters) {
-    if (cluster === 'shared') continue;
-    const clusterDir = path.join(targetDir, cluster);
-    const skillDirs = await listDirs(clusterDir);
+  for (const dir of dirs) {
+    if (!dir.startsWith('siq-')) continue;
 
-    for (const skillDir of skillDirs) {
-      const skillMdPath = path.join(clusterDir, skillDir, 'SKILL.md');
-      const content = await readText(skillMdPath);
-      if (!content) continue;
+    const skillMdPath = path.join(targetDir, dir, 'SKILL.md');
+    const content = await readText(skillMdPath);
+    if (!content) continue;
 
-      const info = parseFrontmatter(content);
-      skills.push({
-        name: info.name ?? skillDir,
-        description: info.description ?? '',
-        cluster,
-      });
-    }
+    const info = parseFrontmatter(content);
+    skills.push({
+      name: info.name ?? dir,
+      description: info.description ?? '',
+      cluster: info.cluster ?? 'standalone',
+    });
   }
 
   return skills;
