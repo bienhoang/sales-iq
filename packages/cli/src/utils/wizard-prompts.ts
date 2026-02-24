@@ -1,5 +1,4 @@
 import type { PromptObject } from 'prompts';
-import { SKILL_CLUSTERS } from './paths.js';
 
 const INDUSTRIES = [
   { title: 'SaaS / Software', value: 'saas' },
@@ -20,12 +19,6 @@ const TONES = [
   { title: 'Warm / Friendly', value: 'warm' },
   { title: 'Authoritative', value: 'authoritative' },
 ];
-
-const CLUSTER_CHOICES = SKILL_CLUSTERS.map((c) => ({
-  title: c.charAt(0).toUpperCase() + c.slice(1),
-  value: c,
-  selected: true,
-}));
 
 export function getBrandPrompts(): PromptObject[] {
   return [
@@ -56,19 +49,6 @@ export function getBrandPrompts(): PromptObject[] {
       name: 'tones',
       message: 'Pick your brand tone (space to select, enter to confirm):',
       choices: TONES,
-      min: 1,
-      hint: '- Space to select. Enter to submit',
-    },
-  ];
-}
-
-export function getClusterPrompts(): PromptObject[] {
-  return [
-    {
-      type: 'multiselect',
-      name: 'clusters',
-      message: 'Which skill clusters do you want?',
-      choices: CLUSTER_CHOICES,
       min: 1,
       hint: '- Space to select. Enter to submit',
     },

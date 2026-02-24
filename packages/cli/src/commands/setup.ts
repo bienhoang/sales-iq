@@ -8,10 +8,9 @@ import { installSkills } from './install.js';
 import { runDoctor } from './doctor.js';
 import {
   getBrandPrompts,
-  getClusterPrompts,
   resolveIndustry,
 } from '../utils/wizard-prompts.js';
-import { getGlobalSkillsDir } from '../utils/paths.js';
+import { getGlobalSkillsDir, SKILL_CLUSTERS } from '../utils/paths.js';
 import { ensureDir, writeJson } from '../utils/file-ops.js';
 
 export function registerSetup(program: Command): void {
@@ -31,9 +30,8 @@ export async function runSetup(): Promise<void> {
   const brandAnswers = await prompts(getBrandPrompts(), { onCancel: () => process.exit(0) });
   const industry = resolveIndustry(brandAnswers);
 
-  // --- Cluster selection ---
-  const clusterAnswers = await prompts(getClusterPrompts(), { onCancel: () => process.exit(0) });
-  const clusters: string[] = clusterAnswers.clusters;
+  // Install all skill clusters
+  const clusters: string[] = [...SKILL_CLUSTERS];
 
   // --- Install skills ---
   const spinner = ora('Installing skills...').start();
