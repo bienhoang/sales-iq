@@ -34,44 +34,47 @@ export function registerInstall(program: Command): void {
     });
 }
 
-export async function runInstall(opts: InstallOptions): Promise<void> {
+export interface InstallResult {
+  installed: number;
+  skipped: number;
+  errors: string[];
+}
+
+/** Pure install logic — no console I/O. Safe to call from wizard with spinner. */
+export async function installSkills(opts: InstallOptions): Promise<InstallResult> {
   const targetDir = opts.local ? getLocalSkillsDir() : getGlobalSkillsDir();
   const sourceDir = getSkillsSourceDir();
 
   const clusters = resolveClusters(opts.skills);
   if (clusters.length === 0) {
-    console.error(chalk.red(`Unknown cluster(s): "${opts.skills}". Valid: ${SKILL_CLUSTERS.join(', ')}, all`));
-    process.exit(1);
+    return { installed: 0, skipped: 0, errors: [`Unknown cluster(s): "${opts.skills}"`] };
   }
-
-  console.log(chalk.cyan(`\nInstalling sales-iq skills to: ${targetDir}\n`));
 
   await ensureDir(targetDir);
 
   let installed = 0;
   let skipped = 0;
+  const errors: string[] = [];
 
   for (const cluster of clusters) {
     const src = path.join(sourceDir, cluster);
     const dest = path.join(targetDir, cluster);
 
     if (!(await fileExists(src))) {
-      console.warn(chalk.yellow(`  Warning: cluster source not found: ${src}`));
+      errors.push(`Cluster source not found: ${src}`);
       continue;
     }
 
     if (!opts.force && (await fileExists(dest))) {
-      console.log(chalk.yellow(`  Skipped  ${cluster}/ (already exists — use --force to overwrite)`));
       skipped++;
       continue;
     }
 
     try {
       await copyDir(src, dest);
-      console.log(chalk.green(`  Installed ${cluster}/`));
       installed++;
     } catch (err) {
-      console.error(chalk.red(`  Failed   ${cluster}/: ${(err as Error).message}`));
+      errors.push(`${cluster}/: ${(err as Error).message}`);
     }
   }
 
@@ -81,21 +84,35 @@ export async function runInstall(opts: InstallOptions): Promise<void> {
 
   if (await fileExists(sharedSrc)) {
     if (!opts.force && (await fileExists(sharedDest))) {
-      console.log(chalk.yellow(`  Skipped  shared/ (already exists — use --force to overwrite)`));
       skipped++;
     } else {
       try {
         await copyDir(sharedSrc, sharedDest);
-        console.log(chalk.green(`  Installed shared/`));
         installed++;
       } catch (err) {
-        console.error(chalk.red(`  Failed   shared/: ${(err as Error).message}`));
+        errors.push(`shared/: ${(err as Error).message}`);
       }
     }
   }
 
+  return { installed, skipped, errors };
+}
+
+/** CLI wrapper — logs output to console. */
+export async function runInstall(opts: InstallOptions): Promise<void> {
+  const targetDir = opts.local ? getLocalSkillsDir() : getGlobalSkillsDir();
+  console.log(chalk.cyan(`\nInstalling sales-iq skills to: ${targetDir}\n`));
+
+  const result = await installSkills(opts);
+
+  if (result.errors.length > 0) {
+    for (const err of result.errors) {
+      console.error(chalk.red(`  Failed   ${err}`));
+    }
+  }
+
   console.log(
-    `\n${chalk.bold('Done.')} ${chalk.green(`${installed} installed`)}, ${chalk.yellow(`${skipped} skipped`)}.`
+    `\n${chalk.bold('Done.')} ${chalk.green(`${result.installed} installed`)}, ${chalk.yellow(`${result.skipped} skipped`)}.`
   );
 }
 

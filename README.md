@@ -3,104 +3,136 @@
 [![GitHub Packages](https://img.shields.io/badge/registry-GitHub%20Packages-blue)](https://github.com/bienhoang/sales-iq/packages)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Sales and marketing AI toolkit for Claude Code. Install skills, configure your brand, connect live data via MCP.
+AI-powered sales and marketing toolkit for Claude Code. 20 ready-to-use skills for content, campaigns, strategy, and pipeline management.
 
-## Installation
+## Quick Start
 
-### 1. Create a GitHub Personal Access Token
+### Option A: One-command setup (recommended)
 
-Go to **[GitHub Settings > Developer Settings > Personal Access Tokens > Tokens (classic)](https://github.com/settings/tokens/new)** and create a token with `read:packages` scope.
+```bash
+curl -fsSL https://raw.githubusercontent.com/bienhoang/sales-iq/main/setup.sh | bash
+```
 
-### 2. Configure npm to use GitHub Packages
+Handles everything: Node.js, authentication, skill installation, and brand setup.
 
-Add this to your **`~/.npmrc`** (global, one-time setup):
+### Option B: Already have Node.js 20+
+
+```bash
+npx @bienhoang/sales-iq setup
+```
+
+Interactive wizard — no flags needed.
+
+### Then open Claude Code and run:
+
+```
+/siq-brand-strategy
+```
+
+## What's Included
+
+### Marketing (11 skills)
+
+Start with `/siq-brand-strategy` to set your positioning, then use any marketing skill:
+
+| Skill | What it does |
+|-------|-------------|
+| `/siq-brand-strategy` | Brand voice, positioning, ICP (start here) |
+| `/siq-email-campaign` | Email sequences and drip campaigns |
+| `/siq-social-media-calendar` | Monthly social content calendar |
+| `/siq-social-media-post` | Individual social posts |
+| `/siq-ad-copy` | PPC and paid social ad copy |
+| `/siq-seo-content` | SEO-optimized long-form content |
+| `/siq-content-repurpose` | Repurpose content across formats |
+| `/siq-product-launch` | Launch plans and messaging |
+| `/siq-competitor-intel` | Competitor analysis and gaps |
+| `/siq-metrics-report` | Marketing metrics narrative |
+| `/siq-community-engagement` | Community post and response copy |
+
+### Sales (8 skills)
+
+Start with `/siq-account-strategy` to define your sales motion:
+
+| Skill | What it does |
+|-------|-------------|
+| `/siq-account-strategy` | ICP, sales motion, objection map (start here) |
+| `/siq-outreach-sequence` | Cold outreach email sequences |
+| `/siq-demo-prep` | Demo scripts and discovery questions |
+| `/siq-follow-up` | Post-meeting follow-up emails |
+| `/siq-lead-qualification` | BANT/MEDDIC qualification |
+| `/siq-objection-handling` | Objection response playbook |
+| `/siq-proposal-generator` | Proposal and SOW drafts |
+| `/siq-pipeline-report` | Pipeline health narrative |
+
+### Strategy (1 skill)
+
+| Skill | What it does |
+|-------|-------------|
+| `/siq-strategy-consultant` | 10 frameworks: SWOT, Porter's, Blue Ocean, JTBD, and more |
+
+### Live Data via MCP Server
+
+Connect CRM, email, social, and analytics for real-time data in your skills:
+
+```bash
+sales-iq configure --mcp
+```
+
+Supports: HubSpot, Mailchimp, Twitter/X, LinkedIn, Google Analytics 4, SEMrush.
+
+## Maintenance
+
+```bash
+# Check installation health
+sales-iq doctor
+
+# Update skills to latest
+sales-iq update
+
+# Remove everything
+sales-iq uninstall
+```
+
+## Advanced
+
+<details>
+<summary>Manual installation (power users / CI)</summary>
+
+### Prerequisites
+
+- Node.js 20+
+- GitHub PAT with `read:packages` scope
+
+### npm registry setup
+
+Add to `~/.npmrc`:
 
 ```
 @bienhoang:registry=https://npm.pkg.github.com
 //npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN
 ```
 
-> Replace `YOUR_GITHUB_TOKEN` with the PAT from step 1.
-
-### 3. Install and run
+### CLI commands
 
 ```bash
-# Install all skills into Claude Code
-npx @bienhoang/sales-iq install --skills all
+# Install specific clusters
+sales-iq install --skills marketing
+sales-iq install --skills sales,strategy
 
-# Set your brand context
-npx @bienhoang/sales-iq configure --brand --name "YourSaaS" --industry "developer-tools"
+# Install all with force overwrite
+sales-iq install --skills all --force
 
-# Connect live data (CRM, email, social, analytics)
-npx @bienhoang/sales-iq configure --mcp
+# Configure brand via flags
+sales-iq configure --brand --name "YourSaaS" --industry "developer-tools"
+
+# Configure MCP server
+sales-iq configure --mcp
+
+# List installed skills
+sales-iq list
 ```
 
-Then open Claude Code and run `/siq-brand-strategy` to begin.
-
-## Packages
-
-| Package | Description |
-|---------|-------------|
-| `@bienhoang/sales-iq` | CLI — install skills, configure brand and MCP |
-| `@bienhoang/sales-iq-skills` | 20 Claude Code skills across 3 clusters |
-| `@bienhoang/sales-iq-mcp-server` | MCP server with 14 tools for live integrations |
-| `@bienhoang/sales-iq-core` | Shared types and utilities |
-
-## Skills
-
-### Marketing (11 skills)
-
-Hub skill: `/siq-brand-strategy` — sets brand voice, positioning, and ICP. All other marketing skills inherit this context.
-
-| Skill | Purpose |
-|-------|---------|
-| `/siq-brand-strategy` | Hub: brand voice, positioning, ICP |
-| `/siq-ad-copy` | PPC and paid social ad copy |
-| `/siq-community-engagement` | Community post and response copy |
-| `/siq-competitor-intel` | Competitor analysis and positioning gaps |
-| `/siq-content-repurpose` | Repurpose content across formats |
-| `/siq-email-campaign` | Email sequence and drip copy |
-| `/siq-metrics-report` | Marketing metrics narrative |
-| `/siq-product-launch` | Launch plan and messaging |
-| `/siq-seo-content` | SEO-optimized long-form content |
-| `/siq-social-media-calendar` | Monthly social calendar |
-| `/siq-social-media-post` | Individual social posts |
-
-### Sales (8 skills)
-
-Hub skill: `/siq-account-strategy` — defines ICP, sales motion, and objection map for all sales skills.
-
-| Skill | Purpose |
-|-------|---------|
-| `/siq-account-strategy` | Hub: ICP, sales motion, objection map |
-| `/siq-demo-prep` | Demo script and discovery questions |
-| `/siq-follow-up` | Post-meeting follow-up emails |
-| `/siq-lead-qualification` | BANT/MEDDIC qualification notes |
-| `/siq-objection-handling` | Objection response playbook |
-| `/siq-outreach-sequence` | Cold outreach email sequences |
-| `/siq-pipeline-report` | Pipeline health narrative |
-| `/siq-proposal-generator` | Proposal and SOW drafts |
-
-### Strategy (1 skill)
-
-| Skill | Purpose |
-|-------|---------|
-| `/siq-strategy-consultant` | 10 frameworks: SWOT, Porter's Five Forces, Blue Ocean, Jobs-to-be-Done, and more |
-
-## MCP Server
-
-Provides live data to Claude Code via 14 tools across 6 categories:
-
-| Category | Tools |
-|----------|-------|
-| CRM | `crm_get_contact`, `crm_list_deals`, `crm_update_deal`, `crm_create_contact` |
-| Email | `email_send`, `email_list_campaigns`, `email_get_stats` |
-| Social | `social_post`, `social_get_analytics` |
-| Analytics | `analytics_get_traffic`, `analytics_get_seo_rankings` |
-| Lead Scoring | `lead_score` |
-| Calendar | `calendar_list_entries`, `calendar_create_entry` |
-
-Integrations: HubSpot, Mailchimp, Twitter/X, LinkedIn, Google Analytics 4, SEMrush.
+</details>
 
 ## Documentation
 

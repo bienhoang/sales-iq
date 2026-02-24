@@ -48,6 +48,11 @@ export async function readText(filePath: string): Promise<string | null> {
   }
 }
 
+/** Recursively remove a directory. No-op if doesn't exist. */
+export async function removeDir(dirPath: string): Promise<void> {
+  await fs.rm(dirPath, { recursive: true, force: true });
+}
+
 /** List immediate child directory names inside a directory. */
 export async function listDirs(dirPath: string): Promise<string[]> {
   try {
