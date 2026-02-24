@@ -5,9 +5,8 @@ import type { Command } from 'commander';
 import {
   getGlobalSkillsDir,
   getClaudeSettingsPath,
-  SKILL_CLUSTERS,
 } from '../utils/paths.js';
-import { fileExists, readJson, writeJson, removeDir } from '../utils/file-ops.js';
+import { fileExists, readJson, writeJson, removeDir, listDirs } from '../utils/file-ops.js';
 
 export function registerUninstall(program: Command): void {
   program
@@ -38,13 +37,13 @@ export async function runUninstall(): Promise<void> {
   const skillsDir = getGlobalSkillsDir();
   let removed = 0;
 
-  for (const cluster of SKILL_CLUSTERS) {
-    const clusterDir = path.join(skillsDir, cluster);
-    if (await fileExists(clusterDir)) {
-      await removeDir(clusterDir);
-      console.log(chalk.green(`  Removed ${cluster}/`));
-      removed++;
-    }
+  // Remove all siq-* skill directories
+  const dirs = await listDirs(skillsDir);
+  for (const dir of dirs) {
+    if (!dir.startsWith('siq-')) continue;
+    await removeDir(path.join(skillsDir, dir));
+    console.log(chalk.green(`  Removed ${dir}/`));
+    removed++;
   }
 
   // Remove shared/

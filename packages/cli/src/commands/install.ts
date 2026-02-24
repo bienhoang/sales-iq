@@ -8,7 +8,7 @@ import {
   SKILL_CLUSTERS,
   type SkillCluster,
 } from '../utils/paths.js';
-import { copyDir, ensureDir, fileExists } from '../utils/file-ops.js';
+import { copyDir, ensureDir, fileExists, listDirs } from '../utils/file-ops.js';
 
 interface InstallOptions {
   skills: string;
@@ -56,14 +56,43 @@ export async function installSkills(opts: InstallOptions): Promise<InstallResult
   let skipped = 0;
   const errors: string[] = [];
 
+  // Flatten: copy each siq-* subdirectory directly into ~/.claude/skills/
   for (const cluster of clusters) {
-    const src = path.join(sourceDir, cluster);
-    const dest = path.join(targetDir, cluster);
+    const clusterSrc = path.join(sourceDir, cluster);
 
-    if (!(await fileExists(src))) {
-      errors.push(`Cluster source not found: ${src}`);
+    if (!(await fileExists(clusterSrc))) {
+      errors.push(`Cluster source not found: ${clusterSrc}`);
       continue;
     }
+
+    const skillDirs = await listDirs(clusterSrc);
+    for (const skillDir of skillDirs) {
+      if (!skillDir.startsWith('siq-')) continue;
+
+      const src = path.join(clusterSrc, skillDir);
+      const dest = path.join(targetDir, skillDir);
+
+      if (!opts.force && (await fileExists(dest))) {
+        skipped++;
+        continue;
+      }
+
+      try {
+        await copyDir(src, dest);
+        installed++;
+      } catch (err) {
+        errors.push(`${skillDir}/: ${(err as Error).message}`);
+      }
+    }
+  }
+
+  // Copy root-level siq-* standalone skills (brainstorm, scout, etc.)
+  const rootDirs = await listDirs(sourceDir);
+  for (const dir of rootDirs) {
+    if (!dir.startsWith('siq-')) continue;
+
+    const src = path.join(sourceDir, dir);
+    const dest = path.join(targetDir, dir);
 
     if (!opts.force && (await fileExists(dest))) {
       skipped++;
@@ -74,11 +103,11 @@ export async function installSkills(opts: InstallOptions): Promise<InstallResult
       await copyDir(src, dest);
       installed++;
     } catch (err) {
-      errors.push(`${cluster}/: ${(err as Error).message}`);
+      errors.push(`${dir}/: ${(err as Error).message}`);
     }
   }
 
-  // Always copy shared/ context files
+  // Copy shared/ context files (references used by skills)
   const sharedSrc = path.join(sourceDir, 'shared');
   const sharedDest = path.join(targetDir, 'shared');
 

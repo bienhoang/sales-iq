@@ -1,6 +1,6 @@
 {
   "name": "@bienhoang/sales-iq",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "CLI for installing sales-iq skills and configuring MCP server",
   "type": "module",
   "license": "MIT",

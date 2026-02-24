@@ -60,19 +60,18 @@ export async function runDoctor(): Promise<DoctorResult> {
     result.checks.push({ label: '~/.npmrc registry', status: 'fail' });
   }
 
-  // 3. Skills per cluster
+  // 3. Check for installed siq-* skills
   const skillsDir = getGlobalSkillsDir();
-  for (const cluster of SKILL_CLUSTERS) {
-    const clusterDir = path.join(skillsDir, cluster);
-    if (await fileExists(clusterDir)) {
-      const skills = await listDirs(clusterDir);
-      console.log(`${PASS} ${cluster}/ — ${skills.length} skill(s)`);
-      result.checks.push({ label: `${cluster}/`, status: 'pass' });
-    } else {
-      console.log(`${FAIL} ${cluster}/ — not installed`);
-      result.issues++;
-      result.checks.push({ label: `${cluster}/`, status: 'fail' });
-    }
+  const installedDirs = await listDirs(skillsDir);
+  const siqSkills = installedDirs.filter((d) => d.startsWith('siq-'));
+  if (siqSkills.length > 0) {
+    console.log(`${PASS} ${siqSkills.length} skill(s) installed`);
+    result.checks.push({ label: `${siqSkills.length} skills`, status: 'pass' });
+  } else {
+    console.log(`${FAIL} No siq-* skills installed`);
+    console.log(chalk.dim('       Run: sales-iq setup'));
+    result.issues++;
+    result.checks.push({ label: 'skills', status: 'fail' });
   }
 
   // 4. Brand context
