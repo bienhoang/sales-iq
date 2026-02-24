@@ -1,6 +1,6 @@
 {
   "name": "@bienhoang/sales-iq-dashboard",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Local web dashboard for browsing and editing sales-iq workspace outputs",
   "type": "module",
   "license": "MIT",

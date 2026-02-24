@@ -1,5 +1,12 @@
 # @bienhoang/sales-iq
 
+## 1.5.1
+
+### Patch Changes
+
+- Updated dependencies [[`3de1575`](https://github.com/bienhoang/sales-iq/commit/3de15758111e503f2b106cdc8b3ee3f8b9cec70a)]:
+  - @bienhoang/sales-iq-skills@1.3.3
+
 ## 1.4.1
 
 ### Patch Changes
