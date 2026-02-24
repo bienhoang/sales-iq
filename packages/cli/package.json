@@ -1,0 +1,23 @@
+{
+  "name": "sales-iq",
+  "version": "0.1.0",
+  "description": "CLI for installing sales-iq skills and configuring MCP server",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "sales-iq": "./dist/index.js"
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/"
+  },
+  "dependencies": {
+    "chalk": "^5",
+    "commander": "^12"
+  },
+  "devDependencies": {
+    "@types/node": "^22"
+  }
+}

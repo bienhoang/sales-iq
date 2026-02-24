@@ -1,0 +1,12 @@
+{
+  "name": "sales-iq-skills",
+  "version": "0.1.0",
+  "description": "Claude Code skills for sales, marketing, and strategy",
+  "license": "MIT",
+  "files": [
+    "marketing",
+    "sales",
+    "strategy",
+    "shared"
+  ]
+}

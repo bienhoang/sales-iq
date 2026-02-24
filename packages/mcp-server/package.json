@@ -1,0 +1,28 @@
+{
+  "name": "sales-iq-mcp-server",
+  "version": "0.1.0",
+  "description": "MCP server for sales and marketing integrations",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "sales-iq-mcp": "./dist/index.js"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1",
+    "@anthropic-ai/sdk": "^0.30",
+    "sales-iq-core": "workspace:*"
+  }
+}

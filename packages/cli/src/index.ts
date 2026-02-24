@@ -1,0 +1,19 @@
+import { Command } from 'commander';
+import { registerInstall } from './commands/install.js';
+import { registerConfigure } from './commands/configure.js';
+import { registerUpdate } from './commands/update.js';
+import { registerList } from './commands/list.js';
+
+const program = new Command();
+
+program
+  .name('sales-iq')
+  .description('CLI for installing sales-iq skills and configuring the MCP server')
+  .version('0.1.0');
+
+registerInstall(program);
+registerConfigure(program);
+registerUpdate(program);
+registerList(program);
+
+program.parse(process.argv);

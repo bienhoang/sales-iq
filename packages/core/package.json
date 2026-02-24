@@ -1,0 +1,19 @@
+{
+  "name": "sales-iq-core",
+  "version": "0.1.0",
+  "description": "Shared types and utilities for sales-iq",
+  "type": "module",
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/"
+  }
+}
