@@ -1,5 +1,13 @@
 # @bienhoang/sales-iq
 
+## 1.4.1
+
+### Patch Changes
+
+- Fix skill install flattening: rewrite `../../shared/` to `../shared/` in .md files after flattening cluster nesting
+- Inject `cluster` metadata into SKILL.md frontmatter during install
+- Fix `list` command to work with flat installed structure instead of assuming nested clusters
+
 ## 1.2.0
 
 ### Minor Changes
