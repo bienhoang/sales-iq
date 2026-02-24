@@ -109,12 +109,26 @@ ok "Token verified"
 # --- 5. Install CLI globally ---
 echo ""
 info "Installing sales-iq CLI..."
-npm install -g @bienhoang/sales-iq@latest 2>/dev/null || {
-  warn "Global install failed. You can still use: npx @bienhoang/sales-iq <command>"
+INSTALL_OUTPUT=$(npm install -g @bienhoang/sales-iq@latest 2>&1) && {
+  ok "CLI installed globally"
+} || {
+  # Check common failure causes
+  if echo "$INSTALL_OUTPUT" | grep -qi "permission denied\|EACCES"; then
+    warn "Permission denied. Retrying with sudo..."
+    sudo npm install -g @bienhoang/sales-iq@latest 2>/dev/null && {
+      ok "CLI installed globally (sudo)"
+    } || {
+      warn "Global install failed. Using npx instead."
+      info "You can install later: sudo npm install -g @bienhoang/sales-iq@latest"
+    }
+  else
+    warn "Global install failed. Using npx instead."
+    echo -e "${YELLOW}  $INSTALL_OUTPUT${NC}" | head -3
+  fi
 }
 
-# --- 6. Install skills (silent) ---
-info "Installing skills..."
+# --- 6. Install skills + configure MCP ---
+info "Installing skills & configuring MCP server..."
 echo ""
 
 if command -v sales-iq &> /dev/null; then

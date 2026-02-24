@@ -44,7 +44,8 @@ export function registerConfigure(program: Command): void {
     });
 }
 
-async function configureMcp(opts: ConfigureOptions): Promise<void> {
+/** Write MCP server entry to Claude settings.json (global). */
+export async function setupMcpServer(): Promise<string> {
   const settingsPath = getClaudeSettingsPath(true);
   const existing = (await readJson<ClaudeSettings>(settingsPath)) ?? {};
 
@@ -54,12 +55,17 @@ async function configureMcp(opts: ConfigureOptions): Promise<void> {
       ...(existing.mcpServers ?? {}),
       'sales-iq': {
         command: 'npx',
-        args: ['sales-iq-mcp-server'],
+        args: ['@bienhoang/sales-iq-mcp-server'],
       },
     },
   };
 
   await writeJson(settingsPath, updated);
+  return settingsPath;
+}
+
+async function configureMcp(opts: ConfigureOptions): Promise<void> {
+  const settingsPath = await setupMcpServer();
   console.log(chalk.green(`MCP server config written to: ${settingsPath}`));
 }
 
