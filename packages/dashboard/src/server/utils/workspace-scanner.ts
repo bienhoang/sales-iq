@@ -23,29 +23,40 @@ export interface WorkspaceResponse {
   categories: Category[];
 }
 
-async function scanCategoryDir(workspaceDir: string, cat: string): Promise<Category | null> {
-  const catDir = path.join(workspaceDir, cat);
+/** Recursively collect all .md files within a directory. */
+async function collectMdFiles(dir: string, relativeTo: string): Promise<FileInfo[]> {
+  const files: FileInfo[] = [];
+  let entries;
   try {
-    const entries = await fs.readdir(catDir);
-    const files: FileInfo[] = [];
-    for (const entry of entries) {
-      if (!entry.endsWith('.md')) continue;
-      const filePath = path.join(catDir, entry);
-      const stat = await fs.stat(filePath);
-      if (!stat.isFile()) continue;
+    entries = await fs.readdir(dir, { withFileTypes: true });
+  } catch {
+    return files;
+  }
+  for (const entry of entries) {
+    const fullPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      const nested = await collectMdFiles(fullPath, relativeTo);
+      files.push(...nested);
+    } else if (entry.isFile() && entry.name.endsWith('.md')) {
+      const stat = await fs.stat(fullPath);
+      const relPath = path.relative(relativeTo, fullPath);
       files.push({
-        name: entry,
-        path: `${cat}/${entry}`,
+        name: entry.name,
+        path: relPath,
         modified: stat.mtime.toISOString(),
         size: stat.size,
       });
     }
-    if (files.length > 0) {
-      files.sort((a, b) => b.modified.localeCompare(a.modified));
-      return { name: cat, files };
-    }
-  } catch {
-    // Category dir doesn't exist — skip
+  }
+  return files;
+}
+
+async function scanCategoryDir(workspaceDir: string, cat: string): Promise<Category | null> {
+  const catDir = path.join(workspaceDir, cat);
+  const files = await collectMdFiles(catDir, workspaceDir);
+  if (files.length > 0) {
+    files.sort((a, b) => b.modified.localeCompare(a.modified));
+    return { name: cat, files };
   }
   return null;
 }

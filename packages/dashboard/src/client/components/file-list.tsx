@@ -7,13 +7,34 @@ interface FileInfo {
   size: number;
 }
 
-function formatDisplayName(filename: string): string {
-  return filename
-    .replace(/\.md$/, '')
+function titleCase(slug: string): string {
+  return slug
     .replace(/-\d{4}-\d{2}-\d{2}$/, '')
+    .replace(/^\d{6}-\d{4}-/, '') // strip date prefix like 260224-1543-
     .split('-')
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
     .join(' ');
+}
+
+/** Format display name, using parent dir for context when file is nested. */
+function formatDisplayName(filePath: string): string {
+  const parts = filePath.split('/');
+  // Remove the category prefix (first segment)
+  const withinCategory = parts.slice(1);
+  if (withinCategory.length <= 1) {
+    // Direct child: just format the filename
+    return titleCase(withinCategory[0]?.replace(/\.md$/, '') ?? '');
+  }
+  // Nested: use parent dir name as primary label, filename as qualifier
+  const filename = withinCategory[withinCategory.length - 1].replace(/\.md$/, '');
+  const parentDir = withinCategory[withinCategory.length - 2];
+  const dirLabel = titleCase(parentDir);
+  const fileLabel = titleCase(filename);
+  // If filename is generic (plan, index, readme), just show dir name
+  if (['plan', 'index', 'readme'].includes(filename.toLowerCase())) {
+    return dirLabel;
+  }
+  return `${dirLabel} / ${fileLabel}`;
 }
 
 function formatDate(iso: string): string {
@@ -60,7 +81,7 @@ export function FileList({ files, selectedPath, onSelectFile }: Props) {
                 <p className={`truncate text-sm leading-snug ${
                   isActive ? 'text-blue-700 font-medium' : 'text-slate-700'
                 }`}>
-                  {formatDisplayName(file.name)}
+                  {formatDisplayName(file.path)}
                 </p>
                 <p className="mt-0.5 text-[11px] text-slate-400">
                   {formatDate(file.modified)} · {formatSize(file.size)}
