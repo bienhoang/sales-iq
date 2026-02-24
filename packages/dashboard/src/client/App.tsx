@@ -9,6 +9,25 @@ import { SystemBar } from './components/system-bar.js';
 import { EmptyState } from './components/empty-state.js';
 import { useConfig } from './hooks/use-config.js';
 
+function LoadingSpinner({ message }: { message: string }) {
+  return (
+    <div className="flex flex-1 items-center justify-center">
+      <div className="text-center">
+        <div className="mx-auto mb-3 h-5 w-5 animate-spin rounded-full border-2 border-slate-200 border-t-blue-600" />
+        <p className="text-sm text-slate-400">{message}</p>
+      </div>
+    </div>
+  );
+}
+
+function PlaceholderMessage({ message }: { message: string }) {
+  return (
+    <div className="flex flex-1 items-center justify-center">
+      <p className="text-sm text-slate-400">{message}</p>
+    </div>
+  );
+}
+
 export function App() {
   const { categories, loading: wsLoading } = useWorkspace();
   const { config } = useConfig();
@@ -53,14 +72,9 @@ export function App() {
     setIsBrandSelected(false);
   };
 
-  // Determine main content
   let mainContent: React.ReactNode;
   if (wsLoading) {
-    mainContent = (
-      <div className="flex flex-1 items-center justify-center">
-        <p className="text-sm text-slate-400">Loading workspace...</p>
-      </div>
-    );
+    mainContent = <LoadingSpinner message="Loading workspace..." />;
   } else if (totalFiles === 0 && !isBrandSelected) {
     mainContent = <EmptyState />;
   } else if (isBrandSelected && !brandLoading) {
@@ -83,27 +97,15 @@ export function App() {
       />
     );
   } else if (fileLoading || brandLoading) {
-    mainContent = (
-      <div className="flex flex-1 items-center justify-center">
-        <p className="text-sm text-slate-400">Loading...</p>
-      </div>
-    );
+    mainContent = <LoadingSpinner message="Loading file..." />;
   } else if (selectedCat) {
-    mainContent = (
-      <div className="flex flex-1 items-center justify-center">
-        <p className="text-sm text-slate-400">Select a file to view</p>
-      </div>
-    );
+    mainContent = <PlaceholderMessage message="Select a file to view" />;
   } else {
-    mainContent = (
-      <div className="flex flex-1 items-center justify-center">
-        <p className="text-sm text-slate-400">Select a category from the sidebar</p>
-      </div>
-    );
+    mainContent = <PlaceholderMessage message="Select a category from the sidebar" />;
   }
 
   return (
-    <div className="flex h-screen flex-col">
+    <div className="flex h-screen flex-col font-sans antialiased">
       <div className="flex flex-1 overflow-hidden">
         <Sidebar
           categories={categories}
