@@ -119,6 +119,9 @@ For each prep session, generate a **Demo Prep Brief** using `templates/demo-scri
 - Always confirm next steps before the call ends — never leave without a committed action
 - Reference competitor intel from `../siq-account-strategy/references/` to set traps effectively
 
+## References
+- `references/demo-framework.md` — Demo structure, objection prep matrix, environment checklist
+
 ## Output
 Follow the output convention in `../../shared/output-convention.md`.
 - **Output directory**: `workspace/sales-prep/`

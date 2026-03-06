@@ -36,7 +36,7 @@ export function App() {
   const [isBrandSelected, setIsBrandSelected] = useState(false);
   const isDirtyRef = useRef(false);
 
-  const { content: fileContent, loading: fileLoading } = useFile(
+  const { content: fileContent, loading: fileLoading, error: fileError } = useFile(
     isBrandSelected ? null : selectedFile,
   );
   const { content: brandContent, loading: brandLoading } = useBrandContext();
@@ -87,6 +87,8 @@ export function App() {
         onSaved={() => { isDirtyRef.current = false; }}
       />
     );
+  } else if (fileError) {
+    mainContent = <PlaceholderMessage message={`Error loading file: ${fileError}`} />;
   } else if (selectedFile && !fileLoading) {
     mainContent = (
       <TiptapEditor

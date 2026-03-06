@@ -21,6 +21,7 @@ export async function handlePipelineResource(
 
   // Stub: real impl would aggregate HubSpot deals by stage
   return {
+    _stub: true,
     totalDeals: 0,
     totalValue: 0,
     currency: 'USD',

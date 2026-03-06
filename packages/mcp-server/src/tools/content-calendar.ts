@@ -55,18 +55,21 @@ function loadEntries(): void {
   }
 }
 
-function saveEntries(): void {
+function saveEntries(): { ok: boolean; error?: string } {
   try {
     const filePath = getCalendarFilePath();
-    if (!filePath) return;
+    if (!filePath) return { ok: false, error: 'No project directory found' };
     mkdirSync(dirname(filePath), { recursive: true });
     const data: CalendarData = {
       entries: calendarEntries,
       lastUpdated: new Date().toISOString(),
     };
     writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8');
+    return { ok: true };
   } catch (err) {
-    process.stderr.write(`[sales-iq] Failed to save calendar: ${(err as Error).message}\n`);
+    const message = (err as Error).message;
+    process.stderr.write(`[sales-iq] Failed to save calendar: ${message}\n`);
+    return { ok: false, error: message };
   }
 }
 
@@ -118,7 +121,10 @@ export async function handleContentCalendarTool(
     const { date, channel, content, status = 'draft' } = args as { date: string; channel: string; content: string; status?: string };
     const entry: CalendarEntry = { id: `cal-${Date.now()}`, date, channel, content, status, createdAt: new Date().toISOString() };
     calendarEntries.push(entry);
-    saveEntries();
+    const result = saveEntries();
+    if (!result.ok) {
+      return { success: false, error: `Failed to persist entry: ${result.error}`, entry };
+    }
     return { success: true, entry };
   }
 

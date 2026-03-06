@@ -23,7 +23,9 @@ export function useSaveFile(filePath: string, endpoint?: string): SaveFileState 
         });
         if (!res.ok) throw new Error('Failed to save');
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Unknown error');
+        const msg = err instanceof Error ? err.message : 'Unknown error';
+        setError(msg);
+        throw err;
       } finally {
         setSaving(false);
       }

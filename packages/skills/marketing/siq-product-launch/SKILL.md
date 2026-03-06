@@ -126,5 +126,5 @@ Generate using `templates/launch-timeline.md`:
 
 ## Output
 Follow the output convention in `../../shared/output-convention.md`.
-- **Output directory**: `workspace/strategy/`
+- **Output directory**: `workspace/campaigns/`
 - **File naming**: `{product-name}-{doc-type}-{YYYY-MM-DD}.md`

@@ -47,9 +47,11 @@ interface Contact {
 interface Deal {
   id: string;
   name: string;
-  stage: string;
-  amount?: number;
+  stage: DealStage;
+  amount: number;
+  currency: string;
   contactId?: string;
+  closeDate?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -59,10 +61,10 @@ interface Deal {
 
 ```ts
 interface LeadScore {
-  score: number;         // 0–100
-  grade: string;         // A / B / C / D
-  reasoning: string;
-  nextAction: string;
+  score: number;         // 0-100
+  grade: 'A' | 'B' | 'C' | 'D' | 'F';
+  rationale: string;
+  suggestedActions: string[];
 }
 ```
 

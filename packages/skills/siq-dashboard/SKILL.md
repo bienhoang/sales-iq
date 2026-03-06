@@ -3,6 +3,7 @@ name: siq-dashboard
 description: "Open workspace dashboard to browse and edit your sales-iq outputs in a local web UI"
 license: MIT
 version: 1.0.0
+disable-model-invocation: true
 ---
 
 # Workspace Dashboard

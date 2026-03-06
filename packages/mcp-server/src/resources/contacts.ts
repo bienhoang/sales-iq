@@ -21,6 +21,7 @@ export async function handleContactsResource(
 
   // Stub: real impl would fetch recent contacts from HubSpot
   return {
+    _stub: true,
     contacts: [],
     total: 0,
     limit: 20,

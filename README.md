@@ -3,7 +3,7 @@
 [![GitHub Packages](https://img.shields.io/badge/registry-GitHub%20Packages-blue)](https://github.com/bienhoang/sales-iq/packages)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-AI-powered sales and marketing toolkit for Claude Code. 20 ready-to-use skills, a workspace dashboard, and live data via MCP server.
+AI-powered sales and marketing toolkit for Claude Code. 20 domain skills + 7 standalone utilities (27 total), a workspace dashboard, and live data via MCP server.
 
 ## Quick Start
 

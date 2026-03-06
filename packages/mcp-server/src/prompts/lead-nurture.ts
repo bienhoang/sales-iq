@@ -11,6 +11,11 @@ export const leadNurturePromptDefinition = {
 };
 
 export function getLeadNurturePrompt(args: Record<string, string>): string {
+  const missing = ['firstName', 'company', 'painPoint'].filter((k) => !args[k]);
+  if (missing.length > 0) {
+    return `Error: Missing required arguments: ${missing.join(', ')}`;
+  }
+
   const { firstName, company, painPoint, stage = 'consideration', touchpoints = '3' } = args;
 
   return `You are a B2B sales expert specializing in lead nurturing. Create a personalized nurture sequence.

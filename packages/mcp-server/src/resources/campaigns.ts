@@ -21,6 +21,7 @@ export async function handleCampaignsResource(
 
   // Stub: real impl would fetch active campaigns from Mailchimp
   return {
+    _stub: true,
     campaigns: [],
     total: 0,
     filter: { status: 'sending' },

@@ -94,6 +94,9 @@ Generate reports using:
 - Reference `../siq-account-strategy/references/` for per-deal context when generating deal reviews
 - Coordinate with `siq-follow-up` for at-risk deal intervention sequences
 
+## References
+- `references/report-template.md` — Pipeline report structure with executive summary, stage breakdown, at-risk deals
+
 ## Output
 Follow the output convention in `../../shared/output-convention.md`.
 - **Output directory**: `workspace/reports/`

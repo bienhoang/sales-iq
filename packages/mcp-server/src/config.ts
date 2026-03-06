@@ -1,7 +1,7 @@
 import type { Config } from '@bienhoang/sales-iq-core';
 
 export function loadConfig(): Config {
-  return {
+  const config: Config = {
     hubspotApiKey: process.env.HUBSPOT_API_KEY,
     mailchimpApiKey: process.env.MAILCHIMP_API_KEY,
     mailchimpServerPrefix: process.env.MAILCHIMP_SERVER_PREFIX,
@@ -11,4 +11,13 @@ export function loadConfig(): Config {
     semrushApiKey: process.env.SEMRUSH_API_KEY,
     anthropicApiKey: process.env.ANTHROPIC_API_KEY,
   };
+
+  // Warn about suspiciously short API keys (likely placeholder values)
+  for (const [key, value] of Object.entries(config)) {
+    if (value && value.length < 8 && key !== 'mailchimpServerPrefix') {
+      process.stderr.write(`[sales-iq] Warning: ${key} looks invalid (too short)\n`);
+    }
+  }
+
+  return config;
 }

@@ -172,8 +172,8 @@ async function fixFlattenedPaths(skillDir: string, cluster: string): Promise<voi
     const filePath = path.join(entry.parentPath ?? entry.path, entry.name);
     let content = await fs.readFile(filePath, 'utf-8');
 
-    // ../../shared/ → ../shared/ (skills root reference)
-    content = content.replace(/\.\.\/\.\.\/shared\//g, '../shared/');
+    // ../../ → ../ (one level of nesting removed after flattening)
+    content = content.replace(/\.\.\/\.\.\//g, '../');
 
     // Inject cluster into SKILL.md frontmatter
     if (entry.name === 'SKILL.md' && content.startsWith('---\n')) {

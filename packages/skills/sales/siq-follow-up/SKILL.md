@@ -91,6 +91,9 @@ Content: New hook (trigger event, new capability, relevant case study), soft ask
 - If deal is re-engaging after 60+ days, treat it like a fresh qualification — circumstances change
 - After 3 follow-ups with no response, escalate to manager and consider a "break-up" email
 
+## References
+- `references/follow-up-templates.md` — Email templates by deal stage (post-discovery, post-demo, post-proposal, re-engagement)
+
 ## Output
 Follow the output convention in `../../shared/output-convention.md`.
 - **Output directory**: `workspace/emails/`

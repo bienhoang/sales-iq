@@ -15,7 +15,7 @@ interface Props {
 
 export function TiptapEditor({ content, filePath, saveEndpoint, onSaved }: Props) {
   const [isDirty, setIsDirty] = useState(false);
-  const { save, saving } = useSaveFile(filePath, saveEndpoint);
+  const { save, saving, error } = useSaveFile(filePath, saveEndpoint);
 
   const editor = useEditor({
     extensions: [
@@ -33,9 +33,13 @@ export function TiptapEditor({ content, filePath, saveEndpoint, onSaved }: Props
   const handleSave = useCallback(async () => {
     if (!editor) return;
     const md = editor.getMarkdown();
-    await save(md);
-    setIsDirty(false);
-    onSaved?.();
+    try {
+      await save(md);
+      setIsDirty(false);
+      onSaved?.();
+    } catch {
+      // Error already stored in useSaveFile hook — dirty flag stays true
+    }
   }, [editor, save, onSaved]);
 
   // Ctrl/Cmd+S shortcut
@@ -59,6 +63,11 @@ export function TiptapEditor({ content, filePath, saveEndpoint, onSaved }: Props
       <div className="flex items-center gap-2 border-b border-slate-100 px-4 py-2">
         <span className="text-xs font-medium text-slate-400">{displayPath}</span>
       </div>
+      {error && (
+        <div className="border-b border-red-200 bg-red-50 px-4 py-2 text-xs text-red-600">
+          Save failed: {error}
+        </div>
+      )}
       <EditorToolbar editor={editor} onSave={handleSave} saving={saving} isDirty={isDirty} />
       <div className="tiptap-editor custom-scrollbar flex-1 overflow-y-auto px-8 py-6">
         <div className="prose prose-sm prose-slate mx-auto max-w-3xl">

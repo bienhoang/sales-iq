@@ -3,7 +3,7 @@ import type { Config } from '@bienhoang/sales-iq-core';
 export const analyticsToolDefinitions = [
   {
     name: 'analytics_get_traffic',
-    description: 'Get website traffic data for a date range',
+    description: 'Get website traffic data for a date range (requires GA4_MEASUREMENT_ID)',
     inputSchema: {
       type: 'object' as const,
       properties: {
@@ -15,7 +15,7 @@ export const analyticsToolDefinitions = [
   },
   {
     name: 'analytics_get_seo_rankings',
-    description: 'Get SEO keyword rankings for a domain',
+    description: 'Get SEO keyword rankings for a domain (requires SEMRUSH_API_KEY)',
     inputSchema: {
       type: 'object' as const,
       properties: {
@@ -37,7 +37,7 @@ export async function handleAnalyticsTool(
       return { error: 'API key not configured. Set GA4_MEASUREMENT_ID env var.' };
     }
     const { startDate, endDate } = args as { startDate: string; endDate: string };
-    return { startDate, endDate, sessions: 0, pageViews: 0, uniqueVisitors: 0, bounceRate: 0, avgSessionDuration: 0, topPages: [] };
+    return { _stub: true, startDate, endDate, sessions: 0, pageViews: 0, uniqueVisitors: 0, bounceRate: 0, avgSessionDuration: 0, topPages: [] };
   }
 
   if (name === 'analytics_get_seo_rankings') {
@@ -45,7 +45,7 @@ export async function handleAnalyticsTool(
       return { error: 'API key not configured. Set SEMRUSH_API_KEY env var.' };
     }
     const { domain, keywords = [] } = args as { domain: string; keywords?: string[] };
-    return { domain, keywords, rankings: [] };
+    return { _stub: true, domain, keywords, rankings: [] };
   }
 
   return null;

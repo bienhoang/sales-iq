@@ -59,25 +59,25 @@ export async function handleCrmTool(
   if (name === 'crm_get_contact') {
     if (!config.hubspotApiKey) return missingKey;
     const { email } = args as { email: string };
-    return { id: 'stub-001', firstName: 'Jane', lastName: 'Doe', email, company: 'Acme Corp', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
+    return { _stub: true, id: 'stub-001', firstName: 'Jane', lastName: 'Doe', email, company: 'Acme Corp', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
   }
 
   if (name === 'crm_list_deals') {
     if (!config.hubspotApiKey) return missingKey;
     const { status, limit = 10 } = args as { status?: string; limit?: number };
-    return { deals: [], total: 0, filter: { status, limit } };
+    return { _stub: true, deals: [], total: 0, filter: { status, limit } };
   }
 
   if (name === 'crm_update_deal') {
     if (!config.hubspotApiKey) return missingKey;
     const { id, stage } = args as { id: string; stage: string };
-    return { success: true, id, stage, updatedAt: new Date().toISOString() };
+    return { _stub: true, success: true, id, stage, updatedAt: new Date().toISOString() };
   }
 
   if (name === 'crm_create_contact') {
     if (!config.hubspotApiKey) return missingKey;
     const { firstName, lastName, email, company } = args as { firstName: string; lastName: string; email: string; company?: string };
-    return { id: `contact-${Date.now()}`, firstName, lastName, email, company, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
+    return { _stub: true, id: `contact-${Date.now()}`, firstName, lastName, email, company, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
   }
 
   return null;

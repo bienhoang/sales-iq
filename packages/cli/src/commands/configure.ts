@@ -1,4 +1,5 @@
 import path from 'path';
+import fs from 'fs/promises';
 import chalk from 'chalk';
 import type { Command } from 'commander';
 import { getClaudeSettingsPath, getGlobalSkillsDir } from '../utils/paths.js';
@@ -64,7 +65,7 @@ export async function setupMcpServer(): Promise<string> {
   return settingsPath;
 }
 
-async function configureMcp(opts: ConfigureOptions): Promise<void> {
+async function configureMcp(_opts: ConfigureOptions): Promise<void> {
   const settingsPath = await setupMcpServer();
   console.log(chalk.green(`MCP server config written to: ${settingsPath}`));
 }
@@ -116,7 +117,6 @@ async function configureBrand(opts: ConfigureOptions): Promise<void> {
     market,
   });
 
-  const fs = await import('fs/promises');
   await fs.writeFile(brandContextPath, content, 'utf-8');
 
   console.log(chalk.green(`Brand context written to: ${brandContextPath}`));

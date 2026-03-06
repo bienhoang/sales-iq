@@ -11,6 +11,11 @@ export const campaignLaunchPromptDefinition = {
 };
 
 export function getCampaignLaunchPrompt(args: Record<string, string>): string {
+  const missing = ['product', 'audience', 'goal'].filter((k) => !args[k]);
+  if (missing.length > 0) {
+    return `Error: Missing required arguments: ${missing.join(', ')}`;
+  }
+
   const { product, audience, goal, channels = 'email, social', budget = 'unspecified' } = args;
 
   return `You are an expert marketing strategist. Create a comprehensive campaign launch plan.

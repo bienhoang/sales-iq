@@ -114,6 +114,9 @@ export function generateProjectConfig(input: BrandInput): Record<string, unknown
   return {
     name: input.name,
     slug: input.slug,
+    industry: input.industry,
+    audience: input.audience,
+    tones: input.tones,
     version: '1.0.0',
     created: now,
     updated: now,

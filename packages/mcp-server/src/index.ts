@@ -66,11 +66,19 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     handleContentCalendarTool,
   ];
 
-  for (const handler of handlers) {
-    const result = await handler(name, safeArgs, config);
-    if (result !== null) {
-      return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+  try {
+    for (const handler of handlers) {
+      const result = await handler(name, safeArgs, config);
+      if (result !== null) {
+        return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+      }
     }
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    return {
+      content: [{ type: 'text', text: JSON.stringify({ error: message }) }],
+      isError: true,
+    };
   }
 
   return {
@@ -100,11 +108,16 @@ server.setRequestHandler(ReadResourceRequestSchema, async (request) => {
     handleContactsResource,
   ];
 
-  for (const handler of resourceHandlers) {
-    const result = await handler(uri, config);
-    if (result !== null) {
-      return { contents: [{ uri, mimeType: 'application/json', text: JSON.stringify(result, null, 2) }] };
+  try {
+    for (const handler of resourceHandlers) {
+      const result = await handler(uri, config);
+      if (result !== null) {
+        return { contents: [{ uri, mimeType: 'application/json', text: JSON.stringify(result, null, 2) }] };
+      }
     }
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    return { contents: [{ uri, mimeType: 'application/json', text: JSON.stringify({ error: message }) }] };
   }
 
   return { contents: [{ uri, mimeType: 'application/json', text: JSON.stringify({ error: `Unknown resource: ${uri}` }) }] };
@@ -125,15 +138,20 @@ server.setRequestHandler(GetPromptRequestSchema, async (request) => {
   const { name, arguments: args = {} } = request.params;
   const safeArgs = args as Record<string, string>;
 
-  if (name === 'campaign_launch') {
-    return { messages: [{ role: 'user', content: { type: 'text', text: getCampaignLaunchPrompt(safeArgs) } }] };
+  try {
+    if (name === 'campaign_launch') {
+      return { messages: [{ role: 'user', content: { type: 'text', text: getCampaignLaunchPrompt(safeArgs) } }] };
+    }
+
+    if (name === 'lead_nurture') {
+      return { messages: [{ role: 'user', content: { type: 'text', text: getLeadNurturePrompt(safeArgs) } }] };
+    }
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    return { messages: [{ role: 'user', content: { type: 'text', text: `Error generating prompt: ${message}` } }] };
   }
 
-  if (name === 'lead_nurture') {
-    return { messages: [{ role: 'user', content: { type: 'text', text: getLeadNurturePrompt(safeArgs) } }] };
-  }
-
-  throw new Error(`Unknown prompt: ${name}`);
+  return { messages: [{ role: 'user', content: { type: 'text', text: `Unknown prompt: ${name}` } }] };
 });
 
 // --- Start ---

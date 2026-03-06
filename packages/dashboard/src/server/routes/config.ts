@@ -10,7 +10,11 @@ export function configRouter(projectDir: string): Router {
     const configPath = path.join(projectDir, '.sales-iq.json');
     try {
       const raw = await fs.readFile(configPath, 'utf-8');
-      res.json(JSON.parse(raw));
+      try {
+        res.json(JSON.parse(raw));
+      } catch {
+        res.status(500).json({ error: 'Invalid JSON in .sales-iq.json' });
+      }
     } catch {
       res.status(404).json({ error: 'not found' });
     }

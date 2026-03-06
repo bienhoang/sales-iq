@@ -81,6 +81,9 @@ Generate proposals using the templates:
 - Coordinate with `siq-objection-handling` to pre-empt likely objections in the proposal itself
 - After proposal is sent, use `siq-follow-up` post-proposal templates to maintain momentum
 
+## References
+- `references/proposal-structure.md` — Standard sections, formatting guidelines
+
 ## Output
 Follow the output convention in `../../shared/output-convention.md`.
 - **Output directory**: `workspace/proposals/`

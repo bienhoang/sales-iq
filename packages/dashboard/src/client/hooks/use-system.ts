@@ -15,7 +15,9 @@ export function useSystem(): SystemState {
     fetch('/api/system')
       .then((res) => res.json())
       .then((d) => setData(d))
-      .catch(() => {})
+      .catch((err) => {
+        console.error('[sales-iq] Failed to load system info:', err);
+      })
       .finally(() => setLoading(false));
   }, []);
 

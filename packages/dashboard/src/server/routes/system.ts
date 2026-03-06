@@ -41,21 +41,20 @@ async function isMcpConfigured(): Promise<boolean> {
 }
 
 async function getVersion(): Promise<string> {
-  try {
-    // Walk up from dist/server.js to find package.json
-    const pkgPath = path.resolve(__dirname, '..', 'package.json');
-    const pkg = JSON.parse(await fs.readFile(pkgPath, 'utf-8'));
-    return pkg.version || '0.0.0';
-  } catch {
-    // Fallback: try from project root (dev mode)
+  const candidates = [
+    path.resolve(__dirname, '..', 'package.json'),
+    path.resolve(__dirname, '..', '..', 'package.json'),
+  ];
+  for (const pkgPath of candidates) {
     try {
-      const pkgPath = path.resolve(__dirname, '..', '..', 'package.json');
       const pkg = JSON.parse(await fs.readFile(pkgPath, 'utf-8'));
-      return pkg.version || '0.0.0';
+      if (pkg.version) return pkg.version;
     } catch {
-      return '0.0.0';
+      // Try next candidate
     }
   }
+  process.stderr.write('[sales-iq] Warning: Could not resolve dashboard version\n');
+  return '0.0.0';
 }
 
 export function systemRouter(): Router {
