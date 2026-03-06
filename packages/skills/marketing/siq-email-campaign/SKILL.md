@@ -168,3 +168,9 @@ Email 4 (Day 7)
 Follow the output convention in `../../shared/output-convention.md`.
 - **Output directory**: `workspace/emails/`
 - **File naming**: `{campaign-type}-{segment}-{YYYY-MM-DD}.md`
+
+## Live Data (Optional)
+
+If MCP server is configured (`sales-iq configure --mcp`), use these tools:
+- `email_list_campaigns` — Pull existing campaign data
+- `email_get_stats` — Campaign performance metrics

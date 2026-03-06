@@ -172,7 +172,8 @@ async function fixFlattenedPaths(skillDir: string, cluster: string): Promise<voi
     const filePath = path.join(entry.parentPath ?? entry.path, entry.name);
     let content = await fs.readFile(filePath, 'utf-8');
 
-    // ../../ → ../ (one level of nesting removed after flattening)
+    // Markdown references always use forward slashes (../../shared/), even on Windows.
+    // This rewrites markdown link paths after flattening removes one nesting level.
     content = content.replace(/\.\.\/\.\.\//g, '../');
 
     // Inject cluster into SKILL.md frontmatter

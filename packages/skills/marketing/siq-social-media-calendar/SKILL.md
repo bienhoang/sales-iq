@@ -98,3 +98,9 @@ When a product launch or campaign is active:
 Follow the output convention in `../../shared/output-convention.md`.
 - **Output directory**: `workspace/social/`
 - **File naming**: `{week-start-date}-calendar-{YYYY-MM-DD}.md`
+
+## Live Data (Optional)
+
+If MCP server is configured (`sales-iq configure --mcp`), use these tools:
+- `calendar_list_entries` — Read existing calendar entries
+- `calendar_create_entry` — Persist new entries to workspace

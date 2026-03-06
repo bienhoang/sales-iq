@@ -131,3 +131,11 @@ See `../../shared/saas-benchmarks.md` for full benchmark reference.
 Follow the output convention in `../../shared/output-convention.md`.
 - **Output directory**: `workspace/reports/`
 - **File naming**: `{period}-{report-type}-{YYYY-MM-DD}.md`
+
+## Live Data (Optional)
+
+If MCP server is configured (`sales-iq configure --mcp`), use these tools:
+- `analytics_get_traffic` — Website traffic data
+- `analytics_get_seo_rankings` — SEO ranking data
+- `email_get_stats` — Email campaign metrics
+- `social_get_analytics` — Social media metrics

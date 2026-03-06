@@ -101,3 +101,9 @@ Generate reports using:
 Follow the output convention in `../../shared/output-convention.md`.
 - **Output directory**: `workspace/reports/`
 - **File naming**: `{period}-{report-type}-{YYYY-MM-DD}.md`
+
+## Live Data (Optional)
+
+If MCP server is configured (`sales-iq configure --mcp`), access these resources:
+- `sales-iq://pipeline/summary` — Current pipeline data
+- `crm_list_deals` — Deal details for pipeline analysis

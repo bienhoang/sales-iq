@@ -93,6 +93,20 @@ Start with `/siq-account-strategy` to define your sales motion:
 |-------|-------------|
 | `/siq-strategy-consultant` | 10 frameworks: SWOT, Porter's, Blue Ocean, JTBD, and more |
 
+### Standalone Utilities (7)
+
+General-purpose tools that work across all clusters:
+
+| Skill | What it does |
+|-------|-------------|
+| `/siq-brainstorm` | Solution brainstorming with trade-off analysis |
+| `/siq-research` | Sales/marketing strategy and market research |
+| `/siq-plan` | Campaign planning and GTM roadmaps |
+| `/siq-scout` | Fast project scouting using parallel agents |
+| `/siq-docs-seeker` | Find documentation for sales/marketing tools |
+| `/siq-sequential-thinking` | Step-by-step analysis with revision capability |
+| `/siq-dashboard` | Open workspace dashboard in browser |
+
 ### Workspace Dashboard
 
 Browse and edit workspace outputs in a local web UI:
@@ -123,9 +137,9 @@ Supports: HubSpot, Mailchimp, Twitter/X, LinkedIn, Google Analytics 4, SEMrush.
 
 | Component | Location | Purpose |
 |-----------|----------|---------|
-| CLI (`sales-iq`) | Global npm | Setup, init, doctor, update commands |
-| Dashboard (`siq-dashboard`) | Global npm | Local web UI for workspace files |
-| Skills (20) | `~/.claude/skills/` | Claude Code slash commands |
+| CLI (`sales-iq`) | Global npm | 8 commands: setup, init, install, configure, list, update, doctor, uninstall |
+| Dashboard (`@bienhoang/sales-iq-dashboard`) | Global npm | Local web UI for workspace files |
+| Skills (27) | `~/.claude/skills/siq-*/` | 20 domain skills + 7 standalone utilities |
 | MCP Server | `~/.claude/settings.json` | Live data from CRM/analytics |
 | Brand Context | `<project>/brand-context.md` | Per-project brand info |
 
@@ -135,10 +149,11 @@ Supports: HubSpot, Mailchimp, Twitter/X, LinkedIn, Google Analytics 4, SEMrush.
 |---------|-------------|
 | `setup` | Install skills + dashboard + MCP config + health check |
 | `init` | Create a project for a product/company (interactive wizard) |
+| `install` | Copy skills to `~/.claude/skills` (all clusters or specific ones) |
+| `configure` | Configure MCP server (`--mcp`) and/or brand context (`--brand`) |
 | `list` | Show installed skills |
 | `update` | Force-reinstall all skills |
 | `doctor` | Check installation health |
-| `configure` | Configure MCP server |
 | `uninstall` | Remove all skills and config |
 
 ## Maintenance
@@ -160,12 +175,19 @@ sales-iq uninstall
 sales-iq/                     # Monorepo (Turborepo + pnpm)
 ├── packages/
 │   ├── cli/                  # CLI tool (@bienhoang/sales-iq)
-│   │   └── src/commands/     # setup, init, install, doctor, etc.
-│   ├── skills/               # 20 skills + dashboard skill
+│   │   └── src/commands/     # setup, init, install, configure, list, update, doctor, uninstall
+│   ├── skills/               # 20 domain skills + 7 standalone utilities
 │   │   ├── marketing/        # 11 marketing skills
 │   │   ├── sales/            # 8 sales skills
 │   │   ├── strategy/         # 1 strategy skill
-│   │   └── siq-dashboard/    # Dashboard skill (SKILL.md)
+│   │   ├── shared/           # Brand context, ICP, benchmarks
+│   │   ├── siq-brainstorm/   # Standalone utilities (7)
+│   │   ├── siq-dashboard/
+│   │   ├── siq-docs-seeker/
+│   │   ├── siq-plan/
+│   │   ├── siq-research/
+│   │   ├── siq-scout/
+│   │   └── siq-sequential-thinking/
 │   ├── dashboard/            # Web dashboard (@bienhoang/sales-iq-dashboard)
 │   │   └── src/
 │   │       ├── client/       # React 19 + TailwindCSS 4

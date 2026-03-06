@@ -85,3 +85,9 @@ Follow the output convention in `../../shared/output-convention.md`.
 - **Output directory**: `workspace/sales-prep/`
 - **File naming**: `{account-name}-{plan-type}-{YYYY-MM-DD}.md`
 - Continue saving internal reference data to `references/` as before.
+
+## Live Data (Optional)
+
+If MCP server is configured (`sales-iq configure --mcp`), use these tools for real data:
+- `crm_list_deals` — Pull active deals for the account
+- `crm_get_contact` — Pull stakeholder contact details

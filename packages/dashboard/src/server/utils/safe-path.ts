@@ -9,7 +9,8 @@ export function safePath(base: string, userInput: string): string | null {
   const resolved = path.resolve(resolvedBase, path.normalize(userInput));
 
   // Must be within base directory
-  if (!resolved.startsWith(resolvedBase + path.sep) && resolved !== resolvedBase) {
+  const relative = path.relative(resolvedBase, resolved);
+  if (relative.startsWith('..') || path.isAbsolute(relative)) {
     return null;
   }
   return resolved;

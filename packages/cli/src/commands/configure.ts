@@ -111,11 +111,8 @@ async function configureBrand(opts: ConfigureOptions): Promise<void> {
     '_Update this file with your actual brand details to improve skill outputs._',
   ].join('\n');
 
-  await writeJson(brandContextPath.replace('.md', '.json'), {
-    name,
-    industry,
-    market,
-  });
+  const jsonPath = path.join(path.dirname(brandContextPath), 'brand-context.json');
+  await writeJson(jsonPath, { name, industry, market });
 
   await fs.writeFile(brandContextPath, content, 'utf-8');
 

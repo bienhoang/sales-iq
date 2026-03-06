@@ -23,8 +23,16 @@ export interface WorkspaceResponse {
   categories: Category[];
 }
 
+const MAX_SCAN_DEPTH = 10;
+
 /** Recursively collect all .md files within a directory. */
-async function collectMdFiles(dir: string, relativeTo: string): Promise<FileInfo[]> {
+async function collectMdFiles(
+  dir: string,
+  relativeTo: string,
+  depth: number = 0,
+): Promise<FileInfo[]> {
+  if (depth > MAX_SCAN_DEPTH) return [];
+
   const files: FileInfo[] = [];
   let entries;
   try {
@@ -32,10 +40,20 @@ async function collectMdFiles(dir: string, relativeTo: string): Promise<FileInfo
   } catch {
     return files;
   }
+
+  // Verify directory is within workspace boundary (prevents symlink escape)
+  const realDir = await fs.realpath(dir).catch(() => null);
+  const realBase = await fs.realpath(relativeTo).catch(() => null);
+  if (!realDir || !realBase || (realDir !== realBase && !realDir.startsWith(realBase + path.sep))) {
+    return files;
+  }
+
   for (const entry of entries) {
     const fullPath = path.join(dir, entry.name);
     if (entry.isDirectory()) {
-      const nested = await collectMdFiles(fullPath, relativeTo);
+      // Skip symlinks to prevent cycles
+      if (entry.isSymbolicLink()) continue;
+      const nested = await collectMdFiles(fullPath, relativeTo, depth + 1);
       files.push(...nested);
     } else if (entry.isFile() && entry.name.endsWith('.md')) {
       const stat = await fs.stat(fullPath);

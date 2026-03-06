@@ -13,6 +13,7 @@ export function workspaceRouter(projectDir: string): Router {
       const data = await scanWorkspace(workspaceDir);
       res.json(data);
     } catch (err) {
+      console.error('[sales-iq] Workspace scan failed:', err);
       res.status(500).json({ error: 'Failed to scan workspace' });
     }
   });
@@ -28,7 +29,8 @@ export function workspaceRouter(projectDir: string): Router {
       const content = await fs.readFile(resolved, 'utf-8');
       const stat = await fs.stat(resolved);
       res.json({ path: filePath, content, modified: stat.mtime.toISOString() });
-    } catch {
+    } catch (err) {
+      console.error('[sales-iq] File read failed:', err);
       res.status(404).json({ error: 'File not found' });
     }
   });
@@ -46,7 +48,8 @@ export function workspaceRouter(projectDir: string): Router {
     try {
       await fs.writeFile(resolved, content, 'utf-8');
       res.json({ path: filePath, saved: true });
-    } catch {
+    } catch (err) {
+      console.error('[sales-iq] File write failed:', err);
       res.status(500).json({ error: 'Failed to save file' });
     }
   });

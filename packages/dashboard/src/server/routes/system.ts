@@ -8,19 +8,13 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 async function countSkills(): Promise<number> {
   const home = process.env.HOME || process.env.USERPROFILE || '';
   const skillsBase = path.join(home, '.claude', 'skills');
-  const clusters = ['marketing', 'sales', 'strategy', ''];
-  let count = 0;
-
-  for (const cluster of clusters) {
-    const dir = cluster ? path.join(skillsBase, cluster) : skillsBase;
-    try {
-      const entries = await fs.readdir(dir);
-      count += entries.filter((e) => e.startsWith('siq-')).length;
-    } catch {
-      // Dir doesn't exist — skip
-    }
+  try {
+    // Skills are installed flat at ~/.claude/skills/siq-* (no cluster nesting)
+    const entries = await fs.readdir(skillsBase);
+    return entries.filter((e) => e.startsWith('siq-')).length;
+  } catch {
+    return 0;
   }
-  return count;
 }
 
 async function isMcpConfigured(): Promise<boolean> {

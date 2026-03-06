@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1",
-    "@anthropic-ai/sdk": "^0.30",
+    "@anthropic-ai/sdk": "0.30.1",
     "@bienhoang/sales-iq-core": "workspace:*"
   }
 }

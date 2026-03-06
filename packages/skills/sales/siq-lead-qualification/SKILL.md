@@ -128,3 +128,9 @@ When scoring multiple leads, output a ranked comparison:
 Follow the output convention in `../../shared/output-convention.md`.
 - **Output directory**: `workspace/intel/`
 - **File naming**: `{lead-name}-scorecard-{YYYY-MM-DD}.md`
+
+## Live Data (Optional)
+
+If MCP server is configured (`sales-iq configure --mcp`), use these tools for real data:
+- `lead_score` — AI-powered scoring via Claude API
+- `crm_get_contact` — Pull contact details from CRM

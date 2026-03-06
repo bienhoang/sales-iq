@@ -9,6 +9,7 @@ export interface Config {
   ga4MeasurementId?: string;
   semrushApiKey?: string;
   anthropicApiKey?: string;
+  leadScoringModel?: string;
 }
 
 // CRM Types

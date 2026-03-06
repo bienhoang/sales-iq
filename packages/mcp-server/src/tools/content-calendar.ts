@@ -16,9 +16,6 @@ interface CalendarData {
   lastUpdated: string;
 }
 
-// In-memory store — reloaded from file on every tool call
-let calendarEntries: CalendarEntry[] = [];
-
 /** Find project root by walking up from CWD for .sales-iq.json */
 function findProjectDir(): string | null {
   if (process.env.SALES_IQ_PROJECT_DIR) {
@@ -39,29 +36,26 @@ function getCalendarFilePath(): string | null {
   return join(projectDir, 'workspace', 'social', 'calendar-entries.json');
 }
 
-/** Read entries from disk on every call to stay fresh */
-function loadEntries(): void {
-  calendarEntries = [];
+/** Read entries from disk — returns a fresh array per call (no global state). */
+function loadEntries(): CalendarEntry[] {
   try {
     const filePath = getCalendarFilePath();
-    if (!filePath || !existsSync(filePath)) return;
+    if (!filePath || !existsSync(filePath)) return [];
     const raw = readFileSync(filePath, 'utf-8');
     const data: CalendarData = JSON.parse(raw);
-    if (Array.isArray(data.entries)) {
-      calendarEntries = data.entries;
-    }
+    return Array.isArray(data.entries) ? data.entries : [];
   } catch {
-    // Fall back to empty in-memory store
+    return [];
   }
 }
 
-function saveEntries(): { ok: boolean; error?: string } {
+function saveEntries(entries: CalendarEntry[]): { ok: boolean; error?: string } {
   try {
     const filePath = getCalendarFilePath();
     if (!filePath) return { ok: false, error: 'No project directory found' };
     mkdirSync(dirname(filePath), { recursive: true });
     const data: CalendarData = {
-      entries: calendarEntries,
+      entries,
       lastUpdated: new Date().toISOString(),
     };
     writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8');
@@ -107,11 +101,11 @@ export async function handleContentCalendarTool(
   args: Record<string, unknown>,
   _config: Config,
 ): Promise<unknown> {
-  loadEntries();
+  const entries = loadEntries();
 
   if (name === 'calendar_list_entries') {
     const { startDate, endDate } = args as { startDate: string; endDate: string };
-    const filtered = calendarEntries.filter(
+    const filtered = entries.filter(
       (e) => e.date >= startDate && e.date <= endDate,
     );
     return { entries: filtered, total: filtered.length, range: { startDate, endDate } };
@@ -119,9 +113,20 @@ export async function handleContentCalendarTool(
 
   if (name === 'calendar_create_entry') {
     const { date, channel, content, status = 'draft' } = args as { date: string; channel: string; content: string; status?: string };
+
+    // Validate inputs
+    if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+      return { success: false, error: 'date must be YYYY-MM-DD format' };
+    }
+    if (!channel || channel.length > 100) {
+      return { success: false, error: 'channel is required (max 100 chars)' };
+    }
+    if (!content || content.length > 10000) {
+      return { success: false, error: 'content is required (max 10000 chars)' };
+    }
     const entry: CalendarEntry = { id: `cal-${Date.now()}`, date, channel, content, status, createdAt: new Date().toISOString() };
-    calendarEntries.push(entry);
-    const result = saveEntries();
+    entries.push(entry);
+    const result = saveEntries(entries);
     if (!result.ok) {
       return { success: false, error: `Failed to persist entry: ${result.error}`, entry };
     }

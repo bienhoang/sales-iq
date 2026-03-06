@@ -49,12 +49,21 @@ export async function runDoctor(): Promise<DoctorResult> {
   // 2. npmrc registry
   const npmrcPath = path.join(os.homedir(), '.npmrc');
   const npmrcContent = await readText(npmrcPath);
-  if (npmrcContent?.includes('@bienhoang:registry=')) {
-    console.log(`${PASS} ~/.npmrc has @bienhoang registry`);
-    result.checks.push({ label: '~/.npmrc registry', status: 'pass' });
+  const registryMatch = npmrcContent?.match(/@bienhoang:registry=(.+)/);
+  if (registryMatch) {
+    const registryUrl = registryMatch[1].trim();
+    if (registryUrl.startsWith('https://')) {
+      console.log(`${PASS} ~/.npmrc has @bienhoang registry`);
+      result.checks.push({ label: '~/.npmrc registry', status: 'pass' });
+    } else {
+      console.log(`${FAIL} ~/.npmrc @bienhoang registry URL invalid: ${registryUrl}`);
+      console.log(chalk.dim('       Expected: @bienhoang:registry=https://npm.pkg.github.com'));
+      result.issues++;
+      result.checks.push({ label: '~/.npmrc registry', status: 'fail' });
+    }
   } else {
     console.log(`${FAIL} ~/.npmrc missing @bienhoang registry`);
-    console.log(chalk.dim('       Run setup.sh or add manually: @bienhoang:registry=https://npm.pkg.github.com'));
+    console.log(chalk.dim('       Run setup.sh or add: @bienhoang:registry=https://npm.pkg.github.com'));
     result.issues++;
     result.checks.push({ label: '~/.npmrc registry', status: 'fail' });
   }
